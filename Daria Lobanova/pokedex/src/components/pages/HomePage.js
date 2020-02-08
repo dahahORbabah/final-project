@@ -18,17 +18,22 @@ class HomePage extends React.Component {
         if (COUNT === 0) {                       
             this.init();
             COUNT++;
+            console.log('init state was set');
+            
         } 
         
         this.getPokemonsData();
+        console.log('data was loaded');
+        
     }
 
     init = () => {        
         axios(URL)
         .then(response => {
             for (let i = 0; i < response.data.length; i++) {
+                
                 if (response.data[i].isCatched) {                                             
-                    this.updateDB(i, '');                        
+                    this.updateDB(i + 1, '');                                            
                 }                
             }
 
@@ -44,7 +49,7 @@ class HomePage extends React.Component {
     }
 
     updateDB = (id, date) => {
-        axios.patch(`${URL}/${id + 1}`, {
+        axios.patch(`${URL}/${id}`, {
             date: date,
             isCatched: false
         })    
@@ -71,7 +76,7 @@ class HomePage extends React.Component {
                 this.setState(
                     {
                         isLoading: true,
-                        pokemons: this.state.pokemons.concat(response.data.slice(0, 2))
+                        pokemons: this.state.pokemons.concat(response.data.slice(0, 6))
                     }
                 );             
             })  
@@ -88,30 +93,33 @@ class HomePage extends React.Component {
             return <h2>Loading...</h2>
         } else {
             return (
-                <>
-                    <ul>
-                        <InfiniteScroll
-                            dataLength={this.state.pokemons.length}
-                            next={this.getPokemonsData}
-                            hasMore={this.state.hasMore}
-                            loader={<h4>Loading...</h4>}
-                            endMessage={<h2>End message</h2>}
-                        >    
+               
+                <ul
+                    className='container'>
 
-                        {this.state.pokemons.map(pokemon => (                            
-                            <li 
-                                key={pokemon.id}
-                            >
-                                <Card 
-                                    id={pokemon.id} 
-                                    name={pokemon.name} 
-                                /> 
-                            </li>                            
-                        ))}  
-                        
-                        </InfiniteScroll>                     
-                    </ul>
-                </>
+                    <InfiniteScroll
+                        className='scroll'
+                        dataLength={this.state.pokemons.length}
+                        next={this.getPokemonsData}
+                        hasMore={this.state.hasMore}
+                    >    
+
+                    {this.state.pokemons.map(pokemon => (                            
+                        <li 
+                            className='item border'
+                            key={pokemon.id}
+                        >
+                            <Card 
+                                id={pokemon.id} 
+                                name={pokemon.name} 
+                            /> 
+                        </li>                            
+                    ))}  
+                    
+                    </InfiniteScroll>   
+
+                </ul>
+                
             );
         }
     }

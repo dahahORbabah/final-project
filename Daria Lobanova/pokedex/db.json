@@ -42,7 +42,9 @@
     },
     {
       "name": "wartortle",
-      "id": 8
+      "id": 8,
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "blastoise",

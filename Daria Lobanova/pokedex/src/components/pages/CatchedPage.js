@@ -28,7 +28,7 @@ class CatchedPage extends React.Component {
             this.setState(
                 {
                     isLoading: true,
-                    catchedPokemons: this.state.catchedPokemons.concat(response.data.slice(0, 2))
+                    catchedPokemons: this.state.catchedPokemons.concat(response.data.slice(0, 6))
                 }
             );             
         }) 
@@ -46,14 +46,16 @@ class CatchedPage extends React.Component {
             return (
                 <ul>
                     <InfiniteScroll
-                            dataLength={this.state.catchedPokemons.length}
-                            next={this.getPokemonsData}
-                            hasMore={this.state.hasMore}
+                        className='scroll'
+                        dataLength={this.state.catchedPokemons.length}
+                        next={this.getPokemonsData}
+                        hasMore={this.state.hasMore}
                     >
 
                     {this.state.catchedPokemons.filter((pokemon) => 
                         pokemon.isCatched).map((pokemon) => (
                             <li
+                                className='item'
                                 key={pokemon.id}> 
                                 <Card
                                     id={pokemon.id}

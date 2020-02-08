@@ -58,24 +58,27 @@ class PokemonPage extends React.Component {
         }
 
         return(
-            <h3>
+            <div
+                className='container pokemon border'>
+
                 <p>PokemonID: {this.state.data.id}</p>
                 <p>PokemonNAME: {this.state.data.name}</p>
-                <img 
+                <img
+                    className='pokemon_image-full' 
                     src={this.getPicture(this.state.data.id)}
                     onError={(e) => {
                         e.target.onError = null;
                         e.target.src = 'https://via.placeholder.com/475.png?text=Pokemon+Not+Found';
                     }}
                     alt={'Pokemon'}
-                />
-                PokemonIsCatched: 
-                    {
-                        this.state.data.isCatched
-                            ?   <p>{this.state.data.date}</p>
-                            :   'not Catched'
-                    }
-            </h3>
+                /> 
+                {
+                    this.state.data.isCatched
+                        ?   <p>Catched: {this.state.data.date}</p>
+                        :   'not catched yet'
+                }
+
+            </div>
         )
     } 
 }

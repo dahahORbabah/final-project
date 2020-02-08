@@ -55,19 +55,29 @@ class Card extends React.Component {
         const { changeButton } = this.props;
         const id = this.props.id;  
         return(
-            <div>
+            <div
+                className='pokemon'>
+
                 <Link to={`/pokemon/${this.props.id}`}>
-                    <h3>{this.props.name}</h3>
-                </Link>
-                <img 
-                    src={this.getPicture(this.props.id)}
-                    onError={(e) => {
-                        e.target.onError = null;
-                        e.target.src = 'https://via.placeholder.com/475.png?text=Pokemon+Not+Found';
-                    }}
-                    alt={'Pokemon'}
-                />
+                    
+                    <p className='pokemon_name'>
+                            {this.props.name}
+                    </p>
+
+                    <img 
+                        className='pokemon_image'
+                        src={this.getPicture(this.props.id)}
+                        onError={(e) => {
+                            e.target.onError = null;
+                            e.target.src = 'https://via.placeholder.com/250.png?text=Pokemon+Not+Found';
+                        }}
+                        alt={'Pokemon'}
+                    />
+
+                </Link> 
+
                 <button
+                    className='pokemon_catch'
                     onClick={() => {   
                         let date = new Date();
                                                     
@@ -81,10 +91,11 @@ class Card extends React.Component {
                             :   'CATCH'             
                     }
                 </button>
-                <p>
-                    Catched date: {this.getDate(store.getState())}
-                </p>
-                <hr/>
+
+                <div>
+                    Catched date: <p>{this.getDate(store.getState())}</p>
+                </div>                           
+
             </div>
         );
     }
