@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Helmet } from 'react-helmet';
 
 import Card from '../Card';
 
@@ -45,6 +46,9 @@ class CatchedPage extends React.Component {
         } else {
             return (
                 <ul>
+
+                    <Helmet title='Pokédex | Catched' />
+
                     <InfiniteScroll
                         className='scroll'
                         dataLength={this.state.catchedPokemons.length}

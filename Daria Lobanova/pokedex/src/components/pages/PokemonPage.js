@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 class PokemonPage extends React.Component {
 
@@ -60,6 +61,8 @@ class PokemonPage extends React.Component {
         return(
             <div
                 className='container pokemon border'>
+
+                <Helmet title={`Pokédex | ${this.state.data.name}`} />
 
                 <p>PokemonID: {this.state.data.id}</p>
                 <p>PokemonNAME: {this.state.data.name}</p>
