@@ -13,7 +13,7 @@ class Navbar extends React.Component {
                 </li>
                 <li
                     className='title'>
-                        P O K E M O N S
+                        <h3>P O K E M O N S</h3>
                 </li>
                 <li>
                     <NavLink

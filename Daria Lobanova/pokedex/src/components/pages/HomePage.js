@@ -1,33 +1,39 @@
 import React from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 import Card from '../Card';
 
 const URL = 'http://localhost:3333/pokemons';
-let COUNT = 0;
+let firstLoad = true;
 
 class HomePage extends React.Component {
 
-    state = {
-        isLoading: false,
-        hasMore: true,
-        pokemons: []
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: false,
+            hasMore: true,
+            pokemons: []
+        }
+    } 
 
     componentDidMount() {
-        if (COUNT === 0) {                       
+
+        if (firstLoad) {     
+
             this.init();
-            COUNT++;
-            console.log('init state was set');
-            
+            firstLoad = false;
+            console.log('init state was set');  
+
         } 
-        
+
         this.getPokemonsData();
-        console.log('data was loaded');
-        
+        console.log('data was loaded');     
     }
 
-    init = () => {        
+    init = () => {    
+
         axios(URL)
         .then(response => {
             for (let i = 0; i < response.data.length; i++) {
@@ -39,50 +45,58 @@ class HomePage extends React.Component {
 
             this.setState(
                 {
-                    isLoading: true
+                    isLoading: true,
                 }
             )
+            
         })
         .catch(error => {
             console.log(error);            
         })
+
     }
 
     updateDB = (id, date) => {
+
         axios.patch(`${URL}/${id}`, {
             date: date,
             isCatched: false
         })    
         .catch(error => {
             console.log(error);            
-        })         
+        })  
+
     }
 
     getPokemonsData = () => {
-        let pokemons = this.state.pokemons;
-        
+        let pokemons = this.state.pokemons;            
+                
         if (pokemons.length >= 802) {
+
             this.setState(
                 {
                     hasMore:false
                 }
-            )
+            );
+
             return;
         } else {
             axios.get(URL)
-            .then(response => {
+            .then(response => {                
                 response.data.splice(0, pokemons.length);
+                ;
                 
                 this.setState(
                     {
                         isLoading: true,
                         pokemons: this.state.pokemons.concat(response.data.slice(0, 6))
                     }
-                );             
+                );                   
+                         
             })  
             .catch(error => {
                 console.log(error);                
-            }) 
+            })             
         }      
     }
 
@@ -106,7 +120,7 @@ class HomePage extends React.Component {
 
                     {this.state.pokemons.map(pokemon => (                            
                         <li 
-                            className='item border'
+                            className='card border-dark item'
                             key={pokemon.id}
                         >
                             <Card 

@@ -54,19 +54,21 @@ class Card extends React.Component {
     render() {
         const { changeButton } = this.props;
         const id = this.props.id;  
+        const name = this.props.name;
+
         return(
             <div
                 className='pokemon'>
 
-                <Link to={`/pokemon/${this.props.id}`}>
+                <Link to={`/pokemon/${id}`}>
                     
                     <p className='pokemon_name'>
-                            {this.props.name}
+                            {name}
                     </p>
 
                     <img 
                         className='pokemon_image'
-                        src={this.getPicture(this.props.id)}
+                        src={this.getPicture(id)}
                         onError={(e) => {
                             e.target.onError = null;
                             e.target.src = 'https://via.placeholder.com/250.png?text=Pokemon+Not+Found';
@@ -77,11 +79,11 @@ class Card extends React.Component {
                 </Link> 
 
                 <button
-                    className='pokemon_catch'
+                    className='btn-default pokemon_catch'
                     onClick={() => {   
                         let date = new Date();
                                                     
-                        changeButton(id, true, date.toLocaleDateString(undefined, options)); 
+                        changeButton(id, name, true, date.toLocaleDateString(undefined, options)); 
                         this.updateDB(id, date.toLocaleDateString(undefined, options));                                             
                     }} 
                     disabled={this.getBoolean(store.getState())}>
@@ -92,8 +94,9 @@ class Card extends React.Component {
                     }
                 </button>
 
-                <div>
-                    Catched date: <p>{this.getDate(store.getState())}</p>
+                <div
+                    className='text-center text-muted'>
+                    {this.getDate(store.getState())}
                 </div>                           
 
             </div>

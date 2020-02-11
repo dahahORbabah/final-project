@@ -1,41 +1,32 @@
 import React from 'react';
-import axios from 'axios';
-import InfiniteScroll from 'react-infinite-scroll-component';
+// import InfiniteScroll from 'react-infinite-scroll-component';
+import { store } from '../../index';
 import { Helmet } from 'react-helmet';
 
 import Card from '../Card';
 
-const URL = 'http://localhost:3333/pokemons';
+class CatchedPage extends React.Component {   
 
-class CatchedPage extends React.Component {
-
-    state = {
-        isLoading: false,
-        hasMore: true,
-        catchedPokemons: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: false,
+            hasMore: true,
+            catchedPokemons: store.getState().catched
+        }
     }
 
-    componentDidMount() {                       
-        this.getPokemonsData();
+    componentDidMount() {       
+        this.getPokemonsData();        
     }
 
     getPokemonsData = () => {
-        let pokemons = this.state.catchedPokemons;
+        this.setState(
+            {
+                isLoading: true 
+            }
+        )       
         
-        axios.get(URL)
-        .then(response => {
-            response.data.splice(0, pokemons.length);
-            
-            this.setState(
-                {
-                    isLoading: true,
-                    catchedPokemons: this.state.catchedPokemons.concat(response.data.slice(0, 6))
-                }
-            );             
-        }) 
-        .catch(error => {
-            console.log(error);            
-        })      
     }
 
     render() {
@@ -45,31 +36,44 @@ class CatchedPage extends React.Component {
             return <h2>Loading...</h2>
         } else {
             return (
-                <ul>
+                <ul
+                    className='container'>
 
                     <Helmet title='Pokédex | Catched' />
 
-                    <InfiniteScroll
+                    {/* <InfiniteScroll
                         className='scroll'
                         dataLength={this.state.catchedPokemons.length}
+                            // {
+                            //     store === undefined
+                            //     ?   0
+                            //     :   store.getState().catched.length
+                            // }   
                         next={this.getPokemonsData}
                         hasMore={this.state.hasMore}
-                    >
+                    > */}                     
+                        
+                        {                          
+                            this.state.catchedPokemons.length > 0
+  
+                            ?   this.state.catchedPokemons.map(pokemon => (                       
+                                <li
+                                    className='card border-dark item'
+                                    key={pokemon.id}> 
+                                    <Card
+                                        id={pokemon.id}
+                                        name={pokemon.name}
+                                    />
+                                </li>
+                            ))        
 
-                    {this.state.catchedPokemons.filter((pokemon) => 
-                        pokemon.isCatched).map((pokemon) => (
-                            <li
-                                className='item'
-                                key={pokemon.id}> 
-                                <Card
-                                    id={pokemon.id}
-                                    name={pokemon.name}
-                                />
-                            </li>
-                        ))
-                    }
+                            :   <h1
+                                    className='item'>
+                                        You have not caught any Pokemon :(
+                                </h1>
+                        }
 
-                    </InfiniteScroll> 
+                    {/* </InfiniteScroll>  */}
                 </ul>
             )
         }
