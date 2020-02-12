@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { changeButton } from '../store/actions';
+
 import { store } from '../index';
 
 const URL = 'http://localhost:3333/pokemons';
@@ -103,6 +105,11 @@ class Card extends React.Component {
         );
     }
 }
+
+Card.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string
+};
 
 const putStateProps = (state) => {
     return {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import InfiniteScroll from 'react-infinite-scroll-component';
 import { store } from '../../index';
 import { Helmet } from 'react-helmet';
@@ -79,5 +80,11 @@ class CatchedPage extends React.Component {
         }
     }
 }
+
+CatchedPage.propTypes = {
+    isLoading: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    catchedPokemons: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default CatchedPage;

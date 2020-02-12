@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { store } from '../../index';
 
@@ -99,5 +100,10 @@ class PokemonPage extends React.Component {
         )
     } 
 }
+
+PokemonPage.propTypes = {
+    isLoading: PropTypes.bool,
+    data: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default PokemonPage;

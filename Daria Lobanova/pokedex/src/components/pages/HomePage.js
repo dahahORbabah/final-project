@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Card from '../Card';
@@ -24,12 +25,12 @@ class HomePage extends React.Component {
 
             this.init();
             firstLoad = false;
-            console.log('init state was set');  
+            // console.log('init state was set');  
 
         } 
 
         this.getPokemonsData();
-        console.log('data was loaded');     
+        // console.log('data was loaded');     
     }
 
     init = () => {    
@@ -138,5 +139,11 @@ class HomePage extends React.Component {
         }
     }
 }
+
+HomePage.propTypes = {
+    isLoading: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    pokemons: PropTypes.array
+};
 
 export default HomePage;

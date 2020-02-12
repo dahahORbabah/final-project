@@ -3,8 +3,8 @@
     {
       "name": "bulbasaur",
       "id": 1,
-      "date": "2/11/2020, 11:19 PM",
-      "isCatched": true
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "ivysaur",
