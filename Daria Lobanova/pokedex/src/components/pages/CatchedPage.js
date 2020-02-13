@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { store } from '../../index';
 import { Helmet } from 'react-helmet';
 
@@ -42,17 +42,12 @@ class CatchedPage extends React.Component {
 
                     <Helmet title='Pokédex | Catched' />
 
-                    {/* <InfiniteScroll
+                    <InfiniteScroll
                         className='scroll'
-                        dataLength={this.state.catchedPokemons.length}
-                            // {
-                            //     store === undefined
-                            //     ?   0
-                            //     :   store.getState().catched.length
-                            // }   
+                        dataLength={this.state.catchedPokemons.length}                             
                         next={this.getPokemonsData}
                         hasMore={this.state.hasMore}
-                    > */}                     
+                    >                     
                         
                         {                          
                             this.state.catchedPokemons.length > 0
@@ -74,7 +69,7 @@ class CatchedPage extends React.Component {
                                 </h1>
                         }
 
-                    {/* </InfiniteScroll>  */}
+                    </InfiniteScroll> 
                 </ul>
             )
         }

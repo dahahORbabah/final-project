@@ -69,9 +69,9 @@ class PokemonPage extends React.Component {
                 <Helmet title={`Pokédex | ${this.state.data.name}`} />
 
                 <div
-                    className='card border-dark pokemon item'>
+                    className='card border-dark pokemon item text-monospace'>
 
-                    <h6># {this.state.data.id}</h6>
+                    <h4># {this.state.data.id}</h4>
                     <h2>{this.state.data.name}</h2>
                     <img
                         className='pokemon_image-full' 

@@ -60,7 +60,7 @@ class Card extends React.Component {
 
         return(
             <div
-                className='pokemon'>
+                className='pokemon text-monospace'>
 
                 <Link to={`/pokemon/${id}`}>
                     
@@ -97,7 +97,7 @@ class Card extends React.Component {
                 </button>
 
                 <div
-                    className='text-center text-muted'>
+                    className='date text-center text-muted'>
                     {this.getDate(store.getState())}
                 </div>                           
 

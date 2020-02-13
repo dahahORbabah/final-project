@@ -21,16 +21,12 @@ class HomePage extends React.Component {
 
     componentDidMount() {
 
-        if (firstLoad) {     
-
+        if (firstLoad) {   
             this.init();
-            firstLoad = false;
-            // console.log('init state was set');  
-
+            firstLoad = false; 
         } 
 
-        this.getPokemonsData();
-        // console.log('data was loaded');     
+        this.getPokemonsData();    
     }
 
     init = () => {    
@@ -46,7 +42,7 @@ class HomePage extends React.Component {
 
             this.setState(
                 {
-                    isLoading: true,
+                    isLoading: true
                 }
             )
             
@@ -70,35 +66,24 @@ class HomePage extends React.Component {
     }
 
     getPokemonsData = () => {
-        let pokemons = this.state.pokemons;            
-                
-        if (pokemons.length >= 802) {
-
+        let pokemons = this.state.pokemons;          
+    
+        axios.get(URL)
+        .then(response => {                
+            response.data.splice(0, pokemons.length);
+            ;
+            
             this.setState(
                 {
-                    hasMore:false
+                    isLoading: true,
+                    pokemons: this.state.pokemons.concat(response.data.slice(0, 6))
                 }
-            );
-
-            return;
-        } else {
-            axios.get(URL)
-            .then(response => {                
-                response.data.splice(0, pokemons.length);
-                ;
-                
-                this.setState(
-                    {
-                        isLoading: true,
-                        pokemons: this.state.pokemons.concat(response.data.slice(0, 6))
-                    }
-                );                   
-                         
-            })  
-            .catch(error => {
-                console.log(error);                
-            })             
-        }      
+            );                   
+                        
+        })  
+        .catch(error => {
+            console.log(error);                
+        })                     
     }
 
     render() {
