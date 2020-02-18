@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { changeButton } from '../store/actions';
 
+import { changeButton } from '../store/actions';
 import { store } from '../index';
 
 const URL = 'http://localhost:3333/pokemons';
@@ -15,6 +15,13 @@ const options = {
 }
 
 class Card extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            filterText: ''
+        }
+    }
  
     getBoolean = (obj) => {        
         for (let catched in obj) {
@@ -56,11 +63,20 @@ class Card extends React.Component {
     render() {
         const { changeButton } = this.props;
         const id = this.props.id;  
-        const name = this.props.name;
+        const name = this.props.name; 
+
+        // let filterText = store.subscribe(() => {
+        //     return store.getState().text;                  
+        // });                
 
         return(
             <div
-                className='pokemon text-monospace'>
+                className='pokemon text-monospace'
+                // style={{ display: name.includes(filterText) ? 'flex' : 'none' }}
+                >
+
+                    {/* {console.log(name)} 
+                    {console.log(filterText)} */}
 
                 <Link to={`/pokemon/${id}`}>
                     
@@ -111,7 +127,7 @@ Card.propTypes = {
     name: PropTypes.string
 };
 
-const putStateProps = (state) => {
+const putStateProps = (state) => {    
     return {
         catched: state.catched
     };

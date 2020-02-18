@@ -42,11 +42,11 @@ class CatchedPage extends React.Component {
 
                     <Helmet title='Pokédex | Catched' />
 
-                    <InfiniteScroll
+                    <div
                         className='scroll'
-                        dataLength={this.state.catchedPokemons.length}                             
-                        next={this.getPokemonsData}
-                        hasMore={this.state.hasMore}
+                        // dataLength={this.state.catchedPokemons.length}                             
+                        // next={this.getPokemonsData}
+                        // hasMore={this.state.hasMore}
                     >                     
                         
                         {                          
@@ -69,7 +69,7 @@ class CatchedPage extends React.Component {
                                 </h1>
                         }
 
-                    </InfiniteScroll> 
+                    </div> 
                 </ul>
             )
         }

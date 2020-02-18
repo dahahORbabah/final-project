@@ -11,6 +11,7 @@ import './sass/index.sass';
 import * as serviceWorker from './serviceWorker';
 
 export const ACTION_CHANGE_BUTTON = 'ACTION_CHANGE_BUTTON';
+export const ACTION_CHANGE_INPUT = 'ACTION_CHANGE_INPUT';
 
 export const store = createStore(rootReducer);
 
