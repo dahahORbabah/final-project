@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-// import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Card from '../Card';
-// import { store } from '../../index';
 
 const URL = 'http://localhost:3333/pokemons';
 let firstLoad = true;
@@ -14,16 +12,14 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // isLoading: false,
-            hasMore: true,
+            isLoading: false,
             pokemons: [],
             limit: 6,
             page: 1
-            // totalPages: null
         }
     } 
 
-    componentDidMount() {
+    componentDidMount = () => {
 
         if (firstLoad) {   
             this.init();
@@ -47,28 +43,28 @@ class HomePage extends React.Component {
                 }                
             }
 
-            // this.setState(
-            //     {
-            //         isLoading: true
-            //     }
-            // )
+            this.setState(
+                {
+                    isLoading: true
+                }
+            )
             
         })
         .catch(error => {
             console.log(error);            
         })
 
+        return this.state.pokemons;
     }
 
     updateDB = (id, date) => {
 
         axios.patch(`${URL}/${id}`, {
+            isLoading: true,
             date: date,
             isCatched: false
         })    
-        .catch(error => {
-            console.log(error);            
-        })  
+        .catch(error => console.log(error))  
 
     }
 
@@ -78,19 +74,18 @@ class HomePage extends React.Component {
             page
         } = this.state;
 
-        const url = `${URL}/?_page=${page}&_limit=${limit}`;
+        const currentURL = `${URL}/?_page=${page}&_limit=${limit}`;
 
-        axios.get(url)
-        // .then(response => response.json())
+        axios.get(currentURL)
         .then(response => 
             this.setState(
                 {
-                    pokemons: response.data
-                    // isLoading: false
-                    // totalPages: response.totalPages
+                    pokemons: response.data,
+                    isLoading: true
                 }
             )
         )
+        .catch(error => console.log(error))
     }
 
     loadMorePokemons = () => {
@@ -103,72 +98,67 @@ class HomePage extends React.Component {
     }
 
     handleScroll = () => {
-        let lastLi = document.querySelector('ul > div > li:last-child');
+        let lastLi = document.querySelector('ul.container > li:last-child');
         // console.log(lastLi);
-        
-        let lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
-        // console.log(lastLiOffset);
 
-        let pageOffset = window.pageYOffset + window.innerHeight;
-        // console.log(pageOffset);
-                
-        if (pageOffset > lastLiOffset) {
-            this.loadMorePokemons();
-        }
+        if (lastLi) {
+            let lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
+            // console.log(lastLiOffset);
+
+            let pageOffset = window.pageYOffset + window.innerHeight;
+            // console.log(pageOffset);
+                    
+            if (pageOffset > lastLiOffset) {
+                this.loadMorePokemons();
+            }
+        } else {
+            console.log('oops');
+            
+        }        
     }
 
     render() {
-        // let { isLoading } = this.state;
+        let { isLoading } = this.state;
 
-        // if (!isLoading) {
-        //     return <h2>Loading...</h2>
-        // } else {
+        if (!isLoading) {
             return (
-                <>
+                <h2
+                    className='loading'
+                >
+                    Loading...
+                </h2>
+            )
+        } else {
+            return (                
                
-                    <ul
-                        className='container'>
+                <ul
+                    className='container'>
 
-                        <div
-                            className='scroll'
-                            // dataLength={this.state.pokemons.length}
-                            // next={this.getPokemonsData}
-                            // hasMore={this.state.hasMore}
-                        >    
+                    {this.state.pokemons.map(pokemon => (                            
+                        <li 
+                            className='card border-dark item'
+                            key={pokemon.id}
+                        >
+                            <Card 
+                                id={pokemon.id} 
+                                name={pokemon.name} 
+                            /> 
+                        </li>                            
+                    ))}  
 
-                        {this.state.pokemons.map(pokemon => (                            
-                            <li 
-                                className='card border-dark item'
-                                key={pokemon.id}
-                            >
-                                <Card 
-                                    id={pokemon.id} 
-                                    name={pokemon.name} 
-                                /> 
-                            </li>                            
-                        ))}  
-                        
-                        </div>   
-
-                    </ul>
-
-                    <button onClick={e => {
-                        this.loadMorePokemons();
-                    }}>
-                        Load More Pokemons
-                    </button>
-
-                </>
+                </ul>               
                 
             );
-        // }
+        }
     }
 }
 
 HomePage.propTypes = {
+    firstLoad: PropTypes.bool,
     isLoading: PropTypes.bool,
-    hasMore: PropTypes.bool,
-    pokemons: PropTypes.array
+    pokemons: PropTypes.array,
+    page: PropTypes.number,
+    limit: PropTypes.number
 };
 
 export default HomePage;

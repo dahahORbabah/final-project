@@ -15,13 +15,6 @@ const options = {
 }
 
 class Card extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            filterText: ''
-        }
-    }
  
     getBoolean = (obj) => {        
         for (let catched in obj) {
@@ -56,8 +49,10 @@ class Card extends React.Component {
     }
 
     getPicture = (id) => {
-        this.src = `http://localhost:3300/pokemons/${id}.png`;
-        return this.src;
+        if (id) {
+            this.src = `${URL}/${id}.png`;
+            return this.src;
+        } else return;
     }
 
     render() {
@@ -65,22 +60,17 @@ class Card extends React.Component {
         const id = this.props.id;  
         const name = this.props.name; 
 
-        // let filterText = store.subscribe(() => {
-        //     return store.getState().text;                  
-        // });                
-
         return(
             <div
                 className='pokemon text-monospace'
-                // style={{ display: name.includes(filterText) ? 'flex' : 'none' }}
+            >
+
+                <Link 
+                    to={`/pokemon/${id}`}
                 >
-
-                    {/* {console.log(name)} 
-                    {console.log(filterText)} */}
-
-                <Link to={`/pokemon/${id}`}>
                     
-                    <p className='pokemon_name'>
+                    <p 
+                        className='pokemon_name'>
                             {name}
                     </p>
 

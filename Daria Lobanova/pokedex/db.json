@@ -4,7 +4,8 @@
       "name": "bulbasaur",
       "id": 1,
       "date": "",
-      "isCatched": false
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "ivysaur",
@@ -96,7 +97,9 @@
     },
     {
       "name": "pidgeotto",
-      "id": 17
+      "id": 17,
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "pidgeot",
@@ -146,7 +149,9 @@
     },
     {
       "name": "nidoran-f",
-      "id": 29
+      "id": 29,
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "nidorina",

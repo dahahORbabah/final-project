@@ -16,7 +16,7 @@ class Navbar extends React.Component {
     handleInputChange = (inputValue) => {
         this.setState(
             {
-                inputValue
+                inputValue: inputValue
             }
         )
     }
@@ -30,7 +30,9 @@ class Navbar extends React.Component {
                 <li>
                     <NavLink 
                         className='badge badge-primary'
-                        to='/'>Home Page</NavLink>
+                        to='/'>
+                            Home Page
+                    </NavLink>
                 </li>
                 <li>
                     <SearchBar
@@ -41,7 +43,9 @@ class Navbar extends React.Component {
                 <li>
                     <NavLink
                         className='badge badge-secondary' 
-                        to='/catched'>Catched Page</NavLink>
+                        to='/catched'>
+                            Catched Page
+                    </NavLink>
                 </li>
             </ul>
         )
