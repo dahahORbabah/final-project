@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { store } from '../../index';
+import store from '../../store/store';
 
 const URL = 'http://localhost:3333/pokemons';
 

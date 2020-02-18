@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import CatchedPage from './pages/CatchedPage';
-import HomePage from './pages/HomePage';
-import PokemonPage from './pages/PokemonPage';
-import Navbar from './Navbar';
+import CatchedPage from './view/CatchedPage';
+import HomePage from './view/HomePage';
+import PokemonPage from './view/PokemonPage';
+import Navbar from './view/Navbar';
 
 class App extends React.Component {
     render() {

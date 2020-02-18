@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { rootReducer } from './store/reducers';
 import App from './components/App';
+import store from './store/store';
 
 import './sass/index.sass';
 
 import * as serviceWorker from './serviceWorker';
-
-export const ACTION_CHANGE_BUTTON = 'ACTION_CHANGE_BUTTON';
-export const ACTION_CHANGE_INPUT = 'ACTION_CHANGE_INPUT';
-
-export const store = createStore(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>

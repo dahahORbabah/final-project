@@ -1,5 +1,4 @@
-import { ACTION_CHANGE_BUTTON } from '../index';
-import { ACTION_CHANGE_INPUT } from '../index';
+import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from './variables';
 
 const initialState = {
     catched: [],

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { changeButton } from '../store/actions';
-import { store } from '../index';
+import { changeButton } from '../../store/actions';
+import store from '../../store/store';
 
 const URL = 'http://localhost:3333/pokemons';
 const options = {

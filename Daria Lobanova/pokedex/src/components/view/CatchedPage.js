@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { store } from '../../index';
-import Card from '../Card';
+import store from '../../store/store';
+import Card from './Card';
 
 class CatchedPage extends React.Component {   
 

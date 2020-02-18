@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import SearchBar from '../components/search/SearchBar';
+import SearchBar from '../search/SearchBar';
 
 class Navbar extends React.Component {
     

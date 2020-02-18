@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import Card from '../Card';
+import Card from './Card';
 
 const URL = 'http://localhost:3333/pokemons';
 let firstLoad = true;

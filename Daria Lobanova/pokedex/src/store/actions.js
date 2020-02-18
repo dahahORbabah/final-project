@@ -1,9 +1,6 @@
-import { ACTION_CHANGE_BUTTON } from '../index';
-import { ACTION_CHANGE_INPUT } from '../index';
+import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from './variables';
 
-export const changeButton = (id, name, boolean, date) => { 
-    // console.log(name);
-       
+export const changeButton = (id, name, boolean, date) => {        
     return {
         type: ACTION_CHANGE_BUTTON,
         payload: {            
@@ -15,9 +12,7 @@ export const changeButton = (id, name, boolean, date) => {
     }
 }
 
-export const changeInput = (text) => {    
-    // console.log(text);
-    
+export const changeInput = (text) => {      
     return {
         type: ACTION_CHANGE_INPUT,
         payload: {
