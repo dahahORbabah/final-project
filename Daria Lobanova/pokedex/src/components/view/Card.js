@@ -6,35 +6,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeButton } from '../../store/actions';
+import { URL, OPTIONS, PLACEHOLDER_SMALL } from '../variables';
+import { getBoolean, getDate, getPicture } from '../getters';
 import store from '../../store/store';
 
-const URL = 'http://localhost:3333/pokemons';
-const options = {
-    hour: 'numeric',
-    minute: 'numeric'
-}
-
-class Card extends React.Component {
- 
-    getBoolean = (obj) => {        
-        for (let catched in obj) {
-            for (let num in obj[catched]) {
-                if (this.props.id === obj[catched][num].id) {
-                    return obj[catched][num].isCatched;
-                }
-            } 
-        }        
-    }
-
-    getDate = (obj) => {
-        for (let catched in obj) {
-            for (let num in obj[catched]) {
-                if (this.props.id === obj[catched][num].id) {                    
-                    return obj[catched][num].date;
-                }
-            } 
-        }
-    }
+class Card extends React.Component { 
 
     updateDB = (id, date) => {
         if (id > 0) {
@@ -46,13 +22,6 @@ class Card extends React.Component {
                 console.log(error);                
             })
         }              
-    }
-
-    getPicture = (id) => {
-        if (id) {
-            this.src = `${URL}/${id}.png`;
-            return this.src;
-        } else return;
     }
 
     render() {
@@ -76,10 +45,10 @@ class Card extends React.Component {
 
                     <img 
                         className='pokemon_image'
-                        src={this.getPicture(id)}
+                        src={getPicture(id, this)}
                         onError={(e) => {
                             e.target.onError = null;
-                            e.target.src = 'https://via.placeholder.com/250.png?text=Pokemon+Not+Found';
+                            e.target.src = PLACEHOLDER_SMALL;
                         }}
                         alt={'Pokemon'}
                     />
@@ -91,12 +60,12 @@ class Card extends React.Component {
                     onClick={() => {   
                         let date = new Date();
                                                     
-                        changeButton(id, name, true, date.toLocaleDateString(undefined, options)); 
-                        this.updateDB(id, date.toLocaleDateString(undefined, options));                                             
+                        changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS)); 
+                        this.updateDB(id, date.toLocaleDateString(undefined, OPTIONS));                                             
                     }} 
-                    disabled={this.getBoolean(store.getState())}>
+                    disabled={getBoolean(store.getState(), this.props.id)}>
                     {
-                        this.getBoolean(store.getState())
+                        getBoolean(store.getState(), this.props.id)
                             ?   'CATCHED'
                             :   'CATCH'             
                     }
@@ -104,7 +73,7 @@ class Card extends React.Component {
 
                 <div
                     className='date text-center text-muted'>
-                    {this.getDate(store.getState())}
+                    {getDate(store.getState(), this.props.id)}
                 </div>                           
 
             </div>

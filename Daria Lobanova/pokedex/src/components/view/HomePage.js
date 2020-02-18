@@ -3,13 +3,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import Card from './Card';
+import { URL } from '../variables';
 
-const URL = 'http://localhost:3333/pokemons';
 let firstLoad = true;
 
 class HomePage extends React.Component {
 
     constructor(props) {
+
         super(props);
         this.state = {
             isLoading: false,
@@ -17,6 +18,7 @@ class HomePage extends React.Component {
             limit: 6,
             page: 1
         }
+
     } 
 
     componentDidMount = () => {
@@ -30,6 +32,7 @@ class HomePage extends React.Component {
         window.addEventListener('scroll', event => {
             this.handleScroll(event);
         });
+
     }
 
     init = () => {    
@@ -50,9 +53,7 @@ class HomePage extends React.Component {
             )
             
         })
-        .catch(error => {
-            console.log(error);            
-        })
+        .catch(error => console.log(error)) 
 
         return this.state.pokemons;
     }
@@ -69,6 +70,7 @@ class HomePage extends React.Component {
     }
 
     getPokemonsData = () => {
+
         const {
             limit, 
             page
@@ -86,15 +88,19 @@ class HomePage extends React.Component {
             )
         )
         .catch(error => console.log(error))
+
     }
 
     loadMorePokemons = () => {
+
         this.setState(
             {
                 limit: this.state.limit + 6
             }
         )        
+
         this.getPokemonsData();
+
     }
 
     handleScroll = () => {
@@ -111,10 +117,7 @@ class HomePage extends React.Component {
             if (pageOffset > lastLiOffset) {
                 this.loadMorePokemons();
             }
-        } else {
-            console.log('oops');
-            
-        }        
+        }       
     }
 
     render() {
@@ -132,7 +135,8 @@ class HomePage extends React.Component {
             return (                
                
                 <ul
-                    className='container'>
+                    className='container'
+                >
 
                     {this.state.pokemons.map(pokemon => (                            
                         <li 

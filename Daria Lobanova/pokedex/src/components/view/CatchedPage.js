@@ -24,8 +24,7 @@ class CatchedPage extends React.Component {
             {
                 isLoading: true 
             }
-        )       
-        
+        )     
     }
 
     render() {

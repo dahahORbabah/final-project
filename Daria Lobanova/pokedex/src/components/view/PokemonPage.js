@@ -2,9 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import store from '../../store/store';
 
-const URL = 'http://localhost:3333/pokemons';
+import { URL } from '../variables';
+import { getPicture } from '../getters';
+import store from '../../store/store';
 
 class PokemonPage extends React.Component {
 
@@ -54,13 +55,6 @@ class PokemonPage extends React.Component {
         })         
     }
 
-    getPicture = (id) => {
-        if (id) {
-            this.src = `${URL}/${id}.png`;
-            return this.src;
-        } else return;
-    }
-
     render() {
         let { isLoading } = this.state;
 
@@ -85,7 +79,7 @@ class PokemonPage extends React.Component {
                         <h2>{this.state.data.name}</h2>
                         <img
                             className='pokemon_image-full' 
-                            src={this.getPicture(this.state.data.id)}
+                            src={getPicture(this.state.data.id, this)}
                             onError={(e) => {
                                 e.target.onError = null;
                                 e.target.src = 'https://via.placeholder.com/475.png?text=Pokemon+Not+Found';

@@ -2,15 +2,24 @@
   "pokemons": [
     {
       "name": "bulbasaur",
-      "id": 1
+      "id": 1,
+      "date": "",
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "ivysaur",
-      "id": 2
+      "id": 2,
+      "date": "",
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "venusaur",
-      "id": 3
+      "id": 3,
+      "date": "",
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "charmander",
@@ -78,7 +87,10 @@
     },
     {
       "name": "raticate",
-      "id": 20
+      "id": 20,
+      "date": "",
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "spearow",
@@ -102,7 +114,10 @@
     },
     {
       "name": "raichu",
-      "id": 26
+      "id": 26,
+      "date": "",
+      "isCatched": false,
+      "isLoading": true
     },
     {
       "name": "sandshrew",
