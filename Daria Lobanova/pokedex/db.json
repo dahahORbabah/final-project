@@ -86,7 +86,9 @@
     },
     {
       "name": "rattata",
-      "id": 19
+      "id": 19,
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "raticate",
@@ -97,7 +99,9 @@
     },
     {
       "name": "spearow",
-      "id": 21
+      "id": 21,
+      "date": "",
+      "isCatched": false
     },
     {
       "name": "fearow",

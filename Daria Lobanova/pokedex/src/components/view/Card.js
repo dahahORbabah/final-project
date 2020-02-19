@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeButton } from '../../store/actions';
-import { URL, OPTIONS, PLACEHOLDER_SMALL } from '../variables';
+import { URL, OPTIONS, PLACEHOLDER_SMALL } from '../constants';
 import { getBoolean, getDate, getPicture } from '../getters';
 import store from '../../store/store';
 

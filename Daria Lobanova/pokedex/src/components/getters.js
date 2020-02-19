@@ -1,4 +1,4 @@
-import { URL } from './variables';
+import { URL } from './constants';
 
 export function getBoolean(obj, id) {        
     for (let catched in obj) {

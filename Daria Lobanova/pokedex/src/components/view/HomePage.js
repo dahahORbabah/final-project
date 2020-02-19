@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import Card from './Card';
-import { URL } from '../variables';
+import { URL } from '../constants';
 
 let firstLoad = true;
 
@@ -15,7 +15,7 @@ class HomePage extends React.Component {
         this.state = {
             isLoading: false,
             pokemons: [],
-            limit: 6,
+            limit: 12,
             page: 1
         }
 
