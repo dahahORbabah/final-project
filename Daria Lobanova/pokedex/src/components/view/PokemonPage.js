@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { URL } from '../variables';
+import { URL, PLACEHOLDER_LARGE } from '../variables';
 import { getPicture } from '../getters';
 import store from '../../store/store';
 
@@ -82,7 +82,7 @@ class PokemonPage extends React.Component {
                             src={getPicture(this.state.data.id, this)}
                             onError={(e) => {
                                 e.target.onError = null;
-                                e.target.src = 'https://via.placeholder.com/475.png?text=Pokemon+Not+Found';
+                                e.target.src = PLACEHOLDER_LARGE;
                             }}
                             alt={'Pokemon'}
                         /> 

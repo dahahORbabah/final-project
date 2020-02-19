@@ -16,7 +16,7 @@ class CatchedPage extends React.Component {
     }
 
     componentDidMount() {       
-        this.getPokemonsData();        
+        this.getPokemonsData();     
     }
 
     getPokemonsData = () => {

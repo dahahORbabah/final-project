@@ -54,14 +54,11 @@ class HomePage extends React.Component {
             
         })
         .catch(error => console.log(error)) 
-
-        return this.state.pokemons;
     }
 
     updateDB = (id, date) => {
 
         axios.patch(`${URL}/${id}`, {
-            isLoading: true,
             date: date,
             isCatched: false
         })    
@@ -71,11 +68,7 @@ class HomePage extends React.Component {
 
     getPokemonsData = () => {
 
-        const {
-            limit, 
-            page
-        } = this.state;
-
+        const { limit, page } = this.state;
         const currentURL = `${URL}/?_page=${page}&_limit=${limit}`;
 
         axios.get(currentURL)
@@ -106,14 +99,11 @@ class HomePage extends React.Component {
     handleScroll = () => {
         let lastLi = document.querySelector('ul.container > li:last-child');
         // console.log(lastLi);
-
         if (lastLi) {
             let lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
             // console.log(lastLiOffset);
-
             let pageOffset = window.pageYOffset + window.innerHeight;
-            // console.log(pageOffset);
-                    
+            // console.log(pageOffset);                    
             if (pageOffset > lastLiOffset) {
                 this.loadMorePokemons();
             }

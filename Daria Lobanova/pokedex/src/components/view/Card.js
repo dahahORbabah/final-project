@@ -27,7 +27,7 @@ class Card extends React.Component {
     render() {
         const { changeButton } = this.props;
         const id = this.props.id;  
-        const name = this.props.name; 
+        const name = this.props.name;         
 
         return(
             <div
