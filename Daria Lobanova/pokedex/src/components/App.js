@@ -11,13 +11,15 @@ class App extends React.Component {
     render() {
         return(
             <Router>
-                <Navbar />
-                <Switch>
-                    <Route exact path='/' component={HomePage} />
-                    <Route path='/catched' component={CatchedPage} />
-                    <Route path='/pokemon/:id' component={PokemonPage} />
-                    <Route component={NotFoundPage} />
-                </Switch>
+                {/* <div> */}
+                    <Navbar />
+                    {/* <Switch> */}
+                        <Route exact path='/' component={HomePage} />
+                        <Route path='/catched' component={CatchedPage} />
+                        <Route path='/pokemon/:id' component={PokemonPage} />
+                        <Route component={NotFoundPage} />
+                    {/* </Switch> */}
+                {/* </div> */}
             </Router>
         );
     }

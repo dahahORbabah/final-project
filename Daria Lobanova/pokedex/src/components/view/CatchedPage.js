@@ -12,21 +12,15 @@ class CatchedPage extends React.Component {
         this.state = {
             isLoading: false,
             catchedPokemons: store.getState().catched
-        }
-        console.log(this.state.catchedPokemons);
-        
+        }      
     }
 
-    componentDidMount() {       
-        this.getPokemonsData();     
-    }
-
-    getPokemonsData = () => {
+    componentDidMount() {        
         this.setState(
             {
                 isLoading: true 
             }
-        )     
+        )
     }
 
     render() {
@@ -34,17 +28,13 @@ class CatchedPage extends React.Component {
 
         if (!isLoading) {
             return (
-                <h2
-                    className='loading'
-                >
+                <h2 className='loading'>
                     Loading...
                 </h2>
             )
         } else {
             return (
-                <ul
-                    className='container'>
-
+                <ul className='container'>
                     <Helmet title='Pokédex | Catched' />                                      
                     
                     {                          
@@ -52,20 +42,21 @@ class CatchedPage extends React.Component {
 
                         ?   this.state.catchedPokemons.map(pokemon => (   
                                               
-                            <li
-                                className='card border-dark item'
-                                key={pokemon.id}> 
-                                <Card
-                                    id={pokemon.id}
-                                    name={pokemon.name}
-                                />
-                            </li>
+                                <li
+                                    className='card border-dark item'
+                                    key={pokemon.id}> 
 
-                        ))        
+                                        <Card
+                                            id={pokemon.id}
+                                            name={pokemon.name}
+                                        />
 
-                        :   <h1
-                                className='item'>
-                                    You have not caught any Pokemon :(
+                                </li>
+
+                            ))        
+
+                        :   <h1 className='item'>
+                                You have not caught any Pokemon
                             </h1>
                     }
                     

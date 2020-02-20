@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeInput } from '../../store/actions';
-// import store from '../../store/store';
-// import filterPokemons from '../search/filterPokemons';
 
 class SearchBar extends React.Component {
 

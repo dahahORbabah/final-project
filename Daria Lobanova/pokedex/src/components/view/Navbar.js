@@ -25,8 +25,7 @@ class Navbar extends React.Component {
         const inputValue = this.state.inputValue;
 
         return (
-            <ul
-                className='navbar fixed-top navbar-dark bg-dark'>
+            <ul className='navbar fixed-top navbar-dark bg-dark'>
                 <li>
                     <NavLink 
                         className='badge badge-primary'

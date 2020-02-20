@@ -1,10 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { URL, PLACEHOLDER_LARGE } from '../constants';
+import { PLACEHOLDER_LARGE } from '../constants';
 import { getPicture } from '../getters';
+import { getPokemon } from '../fetchers';
 import store from '../../store/store';
 
 class PokemonPage extends React.Component {
@@ -30,30 +30,12 @@ class PokemonPage extends React.Component {
                         }
                     )                    
                 } else {
-                    this.fetchPokemon(id);
+                    getPokemon(id, this);
                 }
             }
         } else {
-            this.fetchPokemon(id);
+            getPokemon(id, this);
         }
-    }
-
-    fetchPokemon = (id) => {        
-        axios.get(`${URL}/${id}`)
-        .then(response => {                
-            this.setState(
-                {
-                    isLoading: true,
-                    data: {
-                        id: response.data.id,
-                        name: response.data.name,
-                        date: response.data.date,
-                        isCatched: response.data.isCatched
-                    } 
-                }
-            )               
-        })  
-        .catch(error => console.error(error))       
     }
 
     render() {
@@ -61,20 +43,16 @@ class PokemonPage extends React.Component {
 
         if (!isLoading) {
             return(
-                <h2
-                    className='loading'>
-                        Loading...
+                <h2 className='loading'>
+                    Loading...
                 </h2>
             )
         } else {
             return(
-                <div
-                    className='container'>
-    
+                <div className='container'>    
                     <Helmet title={`Pokédex | ${this.state.data.name}`} />
     
-                    <div
-                        className='card border-dark pokemon item text-monospace'>
+                    <div className='card border-dark pokemon item text-monospace'>
     
                         <h4># {this.state.data.id}</h4>
                         <h2>{this.state.data.name}</h2>
@@ -87,16 +65,15 @@ class PokemonPage extends React.Component {
                             }}
                             alt={'Pokemon'}
                         /> 
+
                         {
                             this.state.data.isCatched
-                                ?   <h3
-                                        className='text-center text-muted'>
-                                            Caught: {this.state.data.date}
-                                    </h3>
-                                :   <h3
-                                        className='text-center text-muted'>
-                                            Pokemon is not caught
-                                    </h3>
+                            ?   <h3 className='text-center text-muted'>
+                                    Caught: {this.state.data.date}
+                                </h3>
+                            :   <h3 className='text-center text-muted'>
+                                    Pokemon is not caught
+                                </h3>
                         }
     
                     </div>

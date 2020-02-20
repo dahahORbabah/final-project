@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { URL } from '../constants';
+import { getAllPokemons, getPaginatedPokemons, getInitialStateAfterReload } from '../fetchers';
 import Card from './Card';
 import store from '../../store/store';
 
@@ -13,7 +12,6 @@ let firstLoad = true;
 class HomePage extends React.Component {
 
     constructor(props) {
-
         super(props);
         this.state = {
             isLoading: false,
@@ -22,100 +20,31 @@ class HomePage extends React.Component {
             limit: 12,
             page: 1
         }
-
     } 
 
     componentDidMount = () => {
-
         if (firstLoad) {   
-            this.init();
+            getInitialStateAfterReload(this);
             firstLoad = false; 
-        } 
+        }         
+        
+        //get all data for searching
+        getAllPokemons(this);
 
-        this.getAllPokemons();
-
-        this.getPokemonsData();    
+        getPaginatedPokemons(this);    
         window.addEventListener('scroll', event => {
             this.handleScroll(event);
         });
-
-    }
-
-    init = () => {    
-
-        axios.get(URL)
-        .then(response => {         
-
-            this.setState(
-                {
-                    isLoading: true
-                }
-            )
-
-            for (let i = 0; i < response.data.length; i++) {
-                
-                if (response.data[i].isCatched) {                                             
-                    this.updateDB(i + 1, '');                                            
-                }                
-            }
-        })
-        .catch(error => console.error(error))
-        
-    }
-
-    updateDB = (id, date) => {
-
-        axios.patch(`${URL}/${id}`, {
-            date: date,
-            isCatched: false
-        })    
-        .catch(error => console.error(error)) 
-
-    }
-
-    getPokemonsData = () => {
-
-        const { limit, page } = this.state;
-        const currentURL = `${URL}/?_page=${page}&_limit=${limit}`;
-
-        axios.get(currentURL)
-        .then(response => 
-            this.setState(
-                {
-                    pokemons: response.data,
-                    isLoading: true
-                }
-            )
-        )
-        .catch(error => console.error(error))
-
-    }
-
-    getAllPokemons = () => {
-        axios.get(URL)
-        .then(response => {         
-
-            this.setState(
-                {
-                    isLoading: true,
-                    allPokemons: response.data
-                }
-            )
-
-        })
-        .catch(error => console.error(error))
     }
 
     loadMorePokemons = () => {
-
         this.setState(
             {
                 limit: this.state.limit + 6
             }
-        )        
+        )       
 
-        this.getPokemonsData();
-
+        getPaginatedPokemons(this);
     }
 
     handleScroll = () => {
@@ -137,9 +66,7 @@ class HomePage extends React.Component {
     
         if (!isLoading) {
             return (
-                <h2
-                    className='loading'
-                >
+                <h2 className='loading'>
                     Loading...
                 </h2>
             )
@@ -147,9 +74,7 @@ class HomePage extends React.Component {
             if (store.getState().text) {
                 return (
 
-                    <ul
-                        className='container'
-                    >
+                    <ul className='container' >
 
                         {
                             allPokemons
@@ -160,12 +85,13 @@ class HomePage extends React.Component {
 
                                 <li 
                                     className='card border-dark item'
-                                    key={pokemon.id}
-                                > 
+                                    key={pokemon.id}> 
+
                                     <Card 
                                         id={pokemon.id} 
                                         name={pokemon.name} 
                                     /> 
+
                                 </li> 
 
                             ))
@@ -177,21 +103,24 @@ class HomePage extends React.Component {
             } else {
                 return (                
                
-                    <ul
-                        className='container'
-                    >
+                    <ul className='container'>
     
-                        {pokemons.map(pokemon => (                            
-                            <li 
-                                className='card border-dark item'
-                                key={pokemon.id}
-                            > 
-                                <Card 
-                                    id={pokemon.id} 
-                                    name={pokemon.name} 
-                                /> 
-                            </li>                            
-                        ))}  
+                        {
+                            pokemons.map(pokemon => (  
+
+                                <li 
+                                    className='card border-dark item'
+                                    key={pokemon.id}> 
+
+                                    <Card 
+                                        id={pokemon.id} 
+                                        name={pokemon.name} 
+                                    /> 
+                                    
+                                </li>   
+
+                            ))
+                        }  
     
                     </ul>               
                     

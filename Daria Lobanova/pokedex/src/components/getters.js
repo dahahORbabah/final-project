@@ -26,3 +26,4 @@ export function getPicture(id, img) {
         return img.src;
     } else return;
 }
+
