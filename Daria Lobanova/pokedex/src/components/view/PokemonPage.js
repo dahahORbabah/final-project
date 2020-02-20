@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { URL, PLACEHOLDER_LARGE } from '../variables';
+import { URL, PLACEHOLDER_LARGE } from '../constants';
 import { getPicture } from '../getters';
 import store from '../../store/store';
 
@@ -14,7 +14,7 @@ class PokemonPage extends React.Component {
         this.state = {
             isLoading: false,
             data: store.getState().catched
-        }
+        }        
     }
 
     componentDidMount() {        
@@ -52,7 +52,8 @@ class PokemonPage extends React.Component {
                     } 
                 }
             )               
-        })         
+        })  
+        .catch(error => console.error(error))       
     }
 
     render() {

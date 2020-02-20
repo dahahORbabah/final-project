@@ -18,21 +18,19 @@ class Card extends React.Component {
                 date: date,
                 isCatched: true
             })
-            .catch(error => {
-                console.log(error);                
-            })
+            .catch(error => console.error(error))
         }              
     }
 
     render() {
         const { changeButton } = this.props;
         const id = this.props.id;  
-        const name = this.props.name;         
+        const name = this.props.name;             
 
         return(
             <div
-                className='pokemon text-monospace'
-            >
+                className='pokemon text-monospace'                
+                >
 
                 <Link 
                     to={`/pokemon/${id}`}
@@ -60,7 +58,7 @@ class Card extends React.Component {
                     onClick={() => {   
                         let date = new Date();
                                                     
-                        changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS)); 
+                        changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS));                         
                         this.updateDB(id, date.toLocaleDateString(undefined, OPTIONS));                                             
                     }} 
                     disabled={getBoolean(store.getState(), this.props.id)}>
@@ -74,7 +72,7 @@ class Card extends React.Component {
                 <div
                     className='date text-center text-muted'>
                     {getDate(store.getState(), this.props.id)}
-                </div>                           
+                </div> 
 
             </div>
         );
@@ -86,16 +84,17 @@ Card.propTypes = {
     name: PropTypes.string
 };
 
-const putStateProps = (state) => {    
+const mapStateProps = (state) => {     
     return {
-        catched: state.catched
+        catched: state.catched,
+        text: state.text
     };
 };
 
-const putActionToProps = (dispatch) => {
+const mapActionToProps = (dispatch) => {
     return {
         changeButton: bindActionCreators(changeButton, dispatch)
     }
 };
 
-export default connect(putStateProps, putActionToProps)(Card);
+export default connect(mapStateProps, mapActionToProps)(Card);

@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeInput } from '../../store/actions';
+// import store from '../../store/store';
+// import filterPokemons from '../search/filterPokemons';
 
 class SearchBar extends React.Component {
 
@@ -16,26 +18,28 @@ class SearchBar extends React.Component {
                     type='text'
                     placeholder='Search for pokemons ...'
                     value={filterText}
-                    onChange={(event) => {
-                        this.props.onFilterTextChange(event.target.value);                       // console.log(event.target.value);
+                    onChange={
+                        (event) => {
+                        this.props.onFilterTextChange(event.target.value);
                         changeInput(event.target.value);                                           
-                    }}
+                    }
+                }
                 />
             </>
         );
     }
 }
 
-const putStateProps = (state) => {           
+const mapStateProps = (state) => {           
     return {
         text: state.text
     };
 };
 
-const putActionToProps = (dispatch) => {    
+const mapActionToProps = (dispatch) => {    
     return {
         changeInput: bindActionCreators(changeInput, dispatch)
     }
 };
 
-export default connect(putStateProps, putActionToProps)(SearchBar);
+export default connect(mapStateProps, mapActionToProps)(SearchBar);

@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Card from './Card';
 import { URL } from '../constants';
+import Card from './Card';
+import store from '../../store/store';
 
 let firstLoad = true;
 
@@ -14,6 +17,7 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
+            allPokemons: [],
             pokemons: [],
             limit: 12,
             page: 1
@@ -28,6 +32,8 @@ class HomePage extends React.Component {
             firstLoad = false; 
         } 
 
+        this.getAllPokemons();
+
         this.getPokemonsData();    
         window.addEventListener('scroll', event => {
             this.handleScroll(event);
@@ -37,23 +43,24 @@ class HomePage extends React.Component {
 
     init = () => {    
 
-        axios(URL)
-        .then(response => {
-            for (let i = 0; i < response.data.length; i++) {
-                
-                if (response.data[i].isCatched) {                                             
-                    this.updateDB(i + 1, '');                                            
-                }                
-            }
+        axios.get(URL)
+        .then(response => {         
 
             this.setState(
                 {
                     isLoading: true
                 }
             )
-            
+
+            for (let i = 0; i < response.data.length; i++) {
+                
+                if (response.data[i].isCatched) {                                             
+                    this.updateDB(i + 1, '');                                            
+                }                
+            }
         })
-        .catch(error => console.log(error)) 
+        .catch(error => console.error(error))
+        
     }
 
     updateDB = (id, date) => {
@@ -62,7 +69,7 @@ class HomePage extends React.Component {
             date: date,
             isCatched: false
         })    
-        .catch(error => console.log(error))  
+        .catch(error => console.error(error)) 
 
     }
 
@@ -80,8 +87,23 @@ class HomePage extends React.Component {
                 }
             )
         )
-        .catch(error => console.log(error))
+        .catch(error => console.error(error))
 
+    }
+
+    getAllPokemons = () => {
+        axios.get(URL)
+        .then(response => {         
+
+            this.setState(
+                {
+                    isLoading: true,
+                    allPokemons: response.data
+                }
+            )
+
+        })
+        .catch(error => console.error(error))
     }
 
     loadMorePokemons = () => {
@@ -111,8 +133,8 @@ class HomePage extends React.Component {
     }
 
     render() {
-        let { isLoading } = this.state;
-
+        let { isLoading, allPokemons, pokemons } = this.state;       
+    
         if (!isLoading) {
             return (
                 <h2
@@ -122,27 +144,59 @@ class HomePage extends React.Component {
                 </h2>
             )
         } else {
-            return (                
+            if (store.getState().text) {
+                return (
+
+                    <ul
+                        className='container'
+                    >
+
+                        {
+                            allPokemons
+                            .filter(pokemon => (
+                                pokemon.name.toLowerCase().includes((Object.entries(store.getState().text))[0][1])
+                            ))
+                            .map(pokemon => (    
+
+                                <li 
+                                    className='card border-dark item'
+                                    key={pokemon.id}
+                                > 
+                                    <Card 
+                                        id={pokemon.id} 
+                                        name={pokemon.name} 
+                                    /> 
+                                </li> 
+
+                            ))
+                        }  
+
+                    </ul>
+
+                )                        
+            } else {
+                return (                
                
-                <ul
-                    className='container'
-                >
-
-                    {this.state.pokemons.map(pokemon => (                            
-                        <li 
-                            className='card border-dark item'
-                            key={pokemon.id}
-                        >
-                            <Card 
-                                id={pokemon.id} 
-                                name={pokemon.name} 
-                            /> 
-                        </li>                            
-                    ))}  
-
-                </ul>               
-                
-            );
+                    <ul
+                        className='container'
+                    >
+    
+                        {pokemons.map(pokemon => (                            
+                            <li 
+                                className='card border-dark item'
+                                key={pokemon.id}
+                            > 
+                                <Card 
+                                    id={pokemon.id} 
+                                    name={pokemon.name} 
+                                /> 
+                            </li>                            
+                        ))}  
+    
+                    </ul>               
+                    
+                );
+            }
         }
     }
 }
@@ -155,4 +209,11 @@ HomePage.propTypes = {
     limit: PropTypes.number
 };
 
-export default HomePage;
+
+const mapActionToProps = (dispatch) => {
+    return {
+        changeButton: bindActionCreators(dispatch)
+    }
+};
+
+export default connect(mapActionToProps)(HomePage);

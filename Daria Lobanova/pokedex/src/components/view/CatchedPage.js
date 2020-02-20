@@ -13,6 +13,8 @@ class CatchedPage extends React.Component {
             isLoading: false,
             catchedPokemons: store.getState().catched
         }
+        console.log(this.state.catchedPokemons);
+        
     }
 
     componentDidMount() {       
@@ -28,7 +30,7 @@ class CatchedPage extends React.Component {
     }
 
     render() {
-        let { isLoading } = this.state;
+        let { isLoading } = this.state;       
 
         if (!isLoading) {
             return (
@@ -46,9 +48,10 @@ class CatchedPage extends React.Component {
                     <Helmet title='Pokédex | Catched' />                                      
                     
                     {                          
-                        this.state.catchedPokemons.length > 0
+                        this.state.catchedPokemons.length
 
-                        ?   this.state.catchedPokemons.map(pokemon => (                       
+                        ?   this.state.catchedPokemons.map(pokemon => (   
+                                              
                             <li
                                 className='card border-dark item'
                                 key={pokemon.id}> 
@@ -57,6 +60,7 @@ class CatchedPage extends React.Component {
                                     name={pokemon.name}
                                 />
                             </li>
+
                         ))        
 
                         :   <h1
