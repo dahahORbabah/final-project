@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getAllPokemons, getPaginatedPokemons, getInitialStateAfterReload } from '../fetchers';
+import { getPokemons, getInitialStateAfterReload } from '../fetchers';
 import Card from './Card';
 import store from '../../store/store';
 
@@ -15,8 +15,8 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            allPokemons: [] || this.state.allPokemons,
             pokemons: [],
+            textFilter: '',
             limit: 12,
             page: 1
         }
@@ -27,11 +27,8 @@ class HomePage extends React.Component {
             getInitialStateAfterReload(this);
             firstLoad = false; 
         }         
-        
-        //get all data for searching
-        getAllPokemons(this);
 
-        getPaginatedPokemons(this);    
+        getPokemons(this, this.state.textFilter);    
         window.addEventListener('scroll', event => {
             this.handleScroll(event);
         });
@@ -44,7 +41,7 @@ class HomePage extends React.Component {
             }
         )       
 
-        getPaginatedPokemons(this);
+        getPokemons(this, this.state.textFilter);
     }
 
     handleScroll = () => {
@@ -61,8 +58,25 @@ class HomePage extends React.Component {
         }       
     }
 
+    setFilter = (textFilter) => {        
+        if (textFilter !== this.state.textFilter) {
+            this.setState(
+                {
+                    textFilter
+                }
+            );
+            getPokemons(this, textFilter);
+        }
+    }
+
     render() {
-        let { isLoading, allPokemons, pokemons } = this.state;       
+        let { isLoading, pokemons } = this.state;     
+        const textFilter = store.getState().filterReducer.filterText.text;
+        
+        if (textFilter !== undefined) {
+            this.setFilter(textFilter);                         
+        }
+        
     
         if (!isLoading) {
             return (
@@ -70,62 +84,32 @@ class HomePage extends React.Component {
                     Loading...
                 </h2>
             )
-        } else {
-            if (store.getState().filterReducer.filterText) {
-                return (
+        } else {            
+            return (                
+            
+                <ul className='container'>
 
-                    <ul className='container' >
+                    {
+                        pokemons.map(pokemon => (  
 
-                        {
-                            allPokemons
-                            .filter(pokemon => (
-                                pokemon.name.toLowerCase().includes((Object.entries(store.getState().filterReducer.filterText))[0][1])
-                            ))
-                            .map(pokemon => (    
+                            <li 
+                                className='card border-dark item'
+                                key={pokemon.id}> 
 
-                                <li 
-                                    className='card border-dark item'
-                                    key={pokemon.id}> 
+                                <Card 
+                                    id={pokemon.id} 
+                                    name={pokemon.name} 
+                                /> 
+                                
+                            </li>   
 
-                                    <Card 
-                                        id={pokemon.id} 
-                                        name={pokemon.name} 
-                                    /> 
+                        ))
+                    }  
 
-                                </li> 
-
-                            ))
-                        }  
-
-                    </ul>
-
-                )                        
-            } else {
-                return (                
-               
-                    <ul className='container'>
-    
-                        {
-                            pokemons.map(pokemon => (  
-
-                                <li 
-                                    className='card border-dark item'
-                                    key={pokemon.id}> 
-
-                                    <Card 
-                                        id={pokemon.id} 
-                                        name={pokemon.name} 
-                                    /> 
-                                    
-                                </li>   
-
-                            ))
-                        }  
-    
-                    </ul>               
-                    
-                );
-            }
+                </ul>               
+                
+            );
+            
         }
     }
 }
@@ -141,7 +125,7 @@ HomePage.propTypes = {
 
 const mapActionToProps = (dispatch) => {
     return {
-        changeButton: bindActionCreators(dispatch)
+        changeInput: bindActionCreators(dispatch)
     }
 };
 

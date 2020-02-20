@@ -29,32 +29,19 @@ export function getPokemon (id, component) {
     .catch(error => console.error(error))       
 }
 
-export function getAllPokemons(component) {
-    axios.get(URL)
-    .then(response => {       
-         component.setState(
-            {
-                isLoading: true,
-                allPokemons: response.data
-            }
-        )
-    })
-    .catch(error => console.error(error))
-}
-
-export function getPaginatedPokemons(component) {
+export function getPokemons(component, textFilter) {
     const { limit, page } = component.state;
-    const currentURL = `${URL}/?_page=${page}&_limit=${limit}`;
-
+    const currentURL = `${URL}/?_page=${page}&_limit=${limit}?&name_like=${textFilter}`;    
+    
     axios.get(currentURL)
-    .then(response => 
+    .then(response => {
         component.setState(
             {
-                pokemons: response.data,
-                isLoading: true
+                isLoading: true,
+                pokemons: response.data
             }
-        )
-    )
+        )             
+    })
     .catch(error => console.error(error))
 }
 

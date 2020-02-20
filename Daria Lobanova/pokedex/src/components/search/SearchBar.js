@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
 
 const mapStateProps = (state) => {           
     return {
-        text: state.text
+        filterText: state.filterText
     };
 };
 
