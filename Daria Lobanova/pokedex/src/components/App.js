@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import CatchedPage from './view/CatchedPage';
 import HomePage from './view/HomePage';
+import CatchedPage from './view/CatchedPage';
 import PokemonPage from './view/PokemonPage';
+import NotFoundPage from './view/NotFoundPage';
 import Navbar from './view/Navbar';
 
 class App extends React.Component {
@@ -11,9 +12,12 @@ class App extends React.Component {
         return(
             <Router>
                 <Navbar />
-                <Route exact path='/' component={HomePage} />
-                <Route path='/catched' component={CatchedPage} />
-                <Route path='/pokemon/:id' component={PokemonPage} />
+                <Switch>
+                    <Route exact path='/' component={HomePage} />
+                    <Route path='/catched' component={CatchedPage} />
+                    <Route path='/pokemon/:id' component={PokemonPage} />
+                    <Route component={NotFoundPage} />
+                </Switch>
             </Router>
         );
     }
