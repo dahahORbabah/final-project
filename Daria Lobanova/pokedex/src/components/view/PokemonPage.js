@@ -13,7 +13,7 @@ class PokemonPage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            data: store.getState().catched
+            data: store.getState().catchedReducer.catched
         }        
     }
 

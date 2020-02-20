@@ -13,8 +13,9 @@ class SearchBar extends React.Component {
         return (
             <>
                 <input
+                    className='form-control'
                     type='text'
-                    placeholder='Search for pokemons ...'
+                    placeholder='Search'
                     value={filterText}
                     onChange={
                         (event) => {

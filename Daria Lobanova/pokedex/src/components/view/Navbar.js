@@ -43,7 +43,7 @@ class Navbar extends React.Component {
                     <NavLink
                         className='badge badge-secondary' 
                         to='/catched'>
-                            Catched Page
+                            Catched 
                     </NavLink>
                 </li>
             </ul>

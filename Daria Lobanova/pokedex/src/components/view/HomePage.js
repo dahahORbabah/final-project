@@ -37,7 +37,7 @@ class HomePage extends React.Component {
     loadMorePokemons = () => {
         this.setState(
             {
-                limit: this.state.limit + 6
+                limit: this.state.limit + 12
             }
         )       
 
