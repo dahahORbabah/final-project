@@ -1,20 +1,18 @@
 import { 
     ACTION_CHANGE_BUTTON,
-    INITIAL_STATE
+    INITIAL_STATE_CATCHED
 } from '../constants';
 
-const catchedReducer = (state = INITIAL_STATE, action = {}) => {    
+const catchedReducer = (state = INITIAL_STATE_CATCHED, action = {}) => {    
     switch (action.type) {        
-        case ACTION_CHANGE_BUTTON:  
-        console.log(state);
-        
+        case ACTION_CHANGE_BUTTON:          
             return {  
-                catched: [...state.catched, action.payload],
-                text: state.text
+                ...state,
+                catched: [...state.catched, action.payload]
             }
         default: 
             return state;
-    }
+    }    
 }
 
 export default catchedReducer;

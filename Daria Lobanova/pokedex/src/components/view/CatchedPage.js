@@ -11,7 +11,7 @@ class CatchedPage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            catchedPokemons: store.getState().catched
+            catchedPokemons: store.getState().catchedReducer.catched
         }      
     }
 
@@ -24,7 +24,7 @@ class CatchedPage extends React.Component {
     }
 
     render() {
-        let { isLoading } = this.state;       
+        let { isLoading, catchedPokemons } = this.state;       
 
         if (!isLoading) {
             return (
@@ -38,9 +38,9 @@ class CatchedPage extends React.Component {
                     <Helmet title='Pokédex | Catched' />                                      
                     
                     {                          
-                        this.state.catchedPokemons.length
+                        catchedPokemons.length
 
-                        ?   this.state.catchedPokemons.map(pokemon => (   
+                        ?   catchedPokemons.map(pokemon => (   
                                               
                                 <li
                                     className='card border-dark item'

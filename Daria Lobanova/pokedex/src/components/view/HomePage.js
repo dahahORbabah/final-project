@@ -15,7 +15,7 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            allPokemons: [],
+            allPokemons: [] || this.state.allPokemons,
             pokemons: [],
             limit: 12,
             page: 1
@@ -71,7 +71,7 @@ class HomePage extends React.Component {
                 </h2>
             )
         } else {
-            if (store.getState().text) {
+            if (store.getState().filterReducer.filterText) {
                 return (
 
                     <ul className='container' >
@@ -79,7 +79,7 @@ class HomePage extends React.Component {
                         {
                             allPokemons
                             .filter(pokemon => (
-                                pokemon.name.toLowerCase().includes((Object.entries(store.getState().text))[0][1])
+                                pokemon.name.toLowerCase().includes((Object.entries(store.getState().filterReducer.filterText))[0][1])
                             ))
                             .map(pokemon => (    
 

@@ -44,16 +44,16 @@ class Card extends React.Component {
                         changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS));                         
                         getUpdateDB(id, date.toLocaleDateString(undefined, OPTIONS), true);                                             
                     }} 
-                    disabled={getBoolean(store.getState(), this.props.id)}>
+                    disabled={getBoolean(store.getState().catchedReducer, this.props.id)}>
                     {
-                        getBoolean(store.getState(), this.props.id)
+                        getBoolean(store.getState().catchedReducer, this.props.id)
                         ?   'CATCHED'
                         :   'CATCH'             
                     }
                 </button>
 
                 <div className='date text-center text-muted'>
-                    {getDate(store.getState(), this.props.id)}
+                    {getDate(store.getState().catchedReducer, this.props.id)}
                 </div> 
 
             </div>
@@ -66,10 +66,9 @@ Card.propTypes = {
     name: PropTypes.string
 };
 
-const mapStateProps = (state) => {     
+const mapStateProps = (state) => {        
     return {
-        catched: state.catched,
-        text: state.text
+        catched: state.catchedReducer.catched
     };
 };
 
