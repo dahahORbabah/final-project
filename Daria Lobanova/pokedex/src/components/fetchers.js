@@ -17,21 +17,27 @@ export function getPokemon (id, component) {
         component.setState(
             {
                 isLoading: true,
-                data: {
+                pokemon: {
                     id: response.data.id,
                     name: response.data.name,
                     date: response.data.date,
                     isCatched: response.data.isCatched
                 } 
             }
-        )               
+        )                       
     })  
     .catch(error => console.error(error))       
 }
 
-export function getPokemons(component, textFilter) {
+export function getPokemons(component, textFilter, isCatched) {
     const { limit, page } = component.state;
-    const currentURL = `${URL}/?_page=${page}&_limit=${limit}?&name_like=${textFilter}`;    
+    let currentURL = ''; 
+    
+    if (isCatched) {
+        currentURL = `${URL}/?_page=${page}&_limit=${limit}?&name_like=${textFilter}&isCatched=true`;
+    } else {
+        currentURL = `${URL}/?_page=${page}&_limit=${limit}?&name_like=${textFilter}`;
+    }
     
     axios.get(currentURL)
     .then(response => {
@@ -40,15 +46,15 @@ export function getPokemons(component, textFilter) {
                 isLoading: true,
                 pokemons: response.data
             }
-        )             
+        )    
+              
     })
     .catch(error => console.error(error))
 }
 
 export function getInitialStateAfterReload(component) {    
     axios.get(URL)
-    .then(response => {         
-
+    .then(response => {        
         component.setState(
             {
                 isLoading: true
@@ -61,7 +67,7 @@ export function getInitialStateAfterReload(component) {
                 getUpdateDB(i + 1, '', false);                                            
             }                
         }
-
+       
     })
     .catch(error => console.error(error))        
 }

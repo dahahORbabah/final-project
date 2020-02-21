@@ -16,7 +16,7 @@ class HomePage extends React.Component {
         this.state = {
             isLoading: false,
             pokemons: [],
-            textFilter: '',
+            textFilter: store.getState().filterReducer.filterText.text || '',
             limit: 12,
             page: 1
         }
@@ -27,8 +27,8 @@ class HomePage extends React.Component {
             getInitialStateAfterReload(this);
             firstLoad = false; 
         }         
-
-        getPokemons(this, this.state.textFilter);    
+        
+        getPokemons(this, this.state.textFilter, false);    
         window.addEventListener('scroll', event => {
             this.handleScroll(event);
         });
@@ -40,18 +40,16 @@ class HomePage extends React.Component {
                 limit: this.state.limit + 12
             }
         )       
-
-        getPokemons(this, this.state.textFilter);
+        getPokemons(this, this.state.textFilter, false);
     }
 
     handleScroll = () => {
         let lastLi = document.querySelector('ul.container > li:last-child');
-        // console.log(lastLi);
+  
         if (lastLi) {
-            let lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
-            // console.log(lastLiOffset);
+            let lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;            
             let pageOffset = window.pageYOffset + window.innerHeight;
-            // console.log(pageOffset);                    
+
             if (pageOffset > lastLiOffset) {
                 this.loadMorePokemons();
             }
@@ -64,8 +62,8 @@ class HomePage extends React.Component {
                 {
                     textFilter
                 }
-            );
-            getPokemons(this, textFilter);
+            );            
+            getPokemons(this, textFilter, false);
         }
     }
 
@@ -75,8 +73,7 @@ class HomePage extends React.Component {
         
         if (textFilter !== undefined) {
             this.setFilter(textFilter);                         
-        }
-        
+        }        
     
         if (!isLoading) {
             return (
