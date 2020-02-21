@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { changeInput } from '../../store/actions';
+import { changeInput } from '../../store/actions/actions';
 
 class SearchBar extends React.Component {
 

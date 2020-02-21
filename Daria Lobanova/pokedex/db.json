@@ -2,129 +2,87 @@
   "pokemons": [
     {
       "name": "bulbasaur",
-      "id": 1,
-      "date": "",
-      "isCatched": false
+      "id": 1
     },
     {
       "name": "ivysaur",
-      "id": 2,
-      "date": "",
-      "isCatched": false
+      "id": 2
     },
     {
       "name": "venusaur",
-      "id": 3,
-      "date": "",
-      "isCatched": false
+      "id": 3
     },
     {
       "name": "charmander",
-      "id": 4,
-      "date": "",
-      "isCatched": false
+      "id": 4
     },
     {
       "name": "charmeleon",
-      "id": 5,
-      "date": "",
-      "isCatched": false
+      "id": 5
     },
     {
       "name": "charizard",
-      "id": 6,
-      "date": "",
-      "isCatched": false
+      "id": 6
     },
     {
       "name": "squirtle",
-      "id": 7,
-      "date": "",
-      "isCatched": false
+      "id": 7
     },
     {
       "name": "wartortle",
-      "id": 8,
-      "date": "",
-      "isCatched": false
+      "id": 8
     },
     {
       "name": "blastoise",
-      "id": 9,
-      "date": "",
-      "isCatched": false
+      "id": 9
     },
     {
       "name": "caterpie",
-      "id": 10,
-      "date": "2/21/2020, 1:50 AM",
-      "isCatched": true
+      "id": 10
     },
     {
       "name": "metapod",
-      "id": 11,
-      "date": "",
-      "isCatched": false
+      "id": 11
     },
     {
       "name": "butterfree",
-      "id": 12,
-      "date": "",
-      "isCatched": false
+      "id": 12
     },
     {
       "name": "weedle",
-      "id": 13,
-      "date": "",
-      "isCatched": false
+      "id": 13
     },
     {
       "name": "kakuna",
-      "id": 14,
-      "date": "",
-      "isCatched": false
+      "id": 14
     },
     {
       "name": "beedrill",
-      "id": 15,
-      "date": "",
-      "isCatched": false
+      "id": 15
     },
     {
       "name": "pidgey",
-      "id": 16,
-      "date": "",
-      "isCatched": false
+      "id": 16
     },
     {
       "name": "pidgeotto",
-      "id": 17,
-      "date": "",
-      "isCatched": false
+      "id": 17
     },
     {
       "name": "pidgeot",
-      "id": 18,
-      "date": "",
-      "isCatched": false
+      "id": 18
     },
     {
       "name": "rattata",
-      "id": 19,
-      "date": "",
-      "isCatched": false
+      "id": 19
     },
     {
       "name": "raticate",
-      "id": 20,
-      "date": "",
-      "isCatched": false
+      "id": 20
     },
     {
       "name": "spearow",
-      "id": 21,
-      "date": "",
-      "isCatched": false
+      "id": 21
     },
     {
       "name": "fearow",
@@ -140,15 +98,11 @@
     },
     {
       "name": "pikachu",
-      "id": 25,
-      "date": "",
-      "isCatched": false
+      "id": 25
     },
     {
       "name": "raichu",
-      "id": 26,
-      "date": "",
-      "isCatched": false
+      "id": 26
     },
     {
       "name": "sandshrew",

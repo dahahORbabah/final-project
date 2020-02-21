@@ -1,4 +1,4 @@
-import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from './constants';
+import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from '../constants';
 
 export const changeButton = (id, name, boolean, date) => {            
     return {

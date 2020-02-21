@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { changeButton } from '../../store/actions';
+import { changeButton } from '../../store/actions/actions';
 import { OPTIONS, PLACEHOLDER_SMALL } from '../constants';
 import { getBoolean, getDate, getPicture } from '../getters';
 import { getUpdateDB } from '../fetchers';
@@ -38,7 +38,7 @@ class Card extends React.Component {
                 </Link> 
 
                 <button
-                    className='btn-default pokemon_catch'
+                    className='btn btn-dark pokemon_catch'
                     onClick={() => {   
                         let date = new Date();                                                    
                         changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS));                         
