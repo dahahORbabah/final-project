@@ -8,7 +8,7 @@ import { getPokemons } from '../fetchers';
 import store from '../../store/store';
 import Card from './Card';
 
-class CatchedPage extends React.Component {   
+export class CatchedPage extends React.Component {   
 
     constructor(props) {
         super(props);
@@ -92,7 +92,15 @@ class CatchedPage extends React.Component {
 
 CatchedPage.propTypes = {
     isLoading: PropTypes.bool,
-    catchedPokemons: PropTypes.arrayOf(PropTypes.object)
+    textFilter: PropTypes.string,
+    limit: PropTypes.number,
+    page: PropTypes.number,
+    pokemons: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        isCatched: PropTypes.bool,
+        date: PropTypes.date
+    }))
 };
 
 const mapActionToProps = (dispatch) => {

@@ -69,7 +69,12 @@ class PokemonPage extends React.Component {
 
 PokemonPage.propTypes = {
     isLoading: PropTypes.bool,
-    data: PropTypes.arrayOf(PropTypes.object)
+    pokemon: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        isCatched: PropTypes.bool,
+        date: PropTypes.date
+    }))
 };
 
 export default PokemonPage;

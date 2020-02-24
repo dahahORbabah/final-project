@@ -10,7 +10,7 @@ import { getBoolean, getDate, getPicture } from '../getters';
 import { getUpdateDB } from '../fetchers';
 import store from '../../store/store';
 
-class Card extends React.Component { 
+export class Card extends React.Component { 
 
     render() {
         const { changeButton } = this.props;

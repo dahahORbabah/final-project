@@ -9,7 +9,7 @@ import store from '../../store/store';
 
 let firstLoad = true;
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -114,9 +114,9 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
     firstLoad: PropTypes.bool,
     isLoading: PropTypes.bool,
-    pokemons: PropTypes.array,
     page: PropTypes.number,
-    limit: PropTypes.number
+    limit: PropTypes.number,
+    pokemons: PropTypes.array,
 };
 
 

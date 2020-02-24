@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeInput } from '../../store/actions/actions';
 
-class SearchBar extends React.Component {
+export class SearchBar extends React.Component {
 
     render() {
         const { changeInput } = this.props;
@@ -28,6 +29,10 @@ class SearchBar extends React.Component {
         );
     }
 }
+
+SearchBar.propTypes = {
+    filterText: PropTypes.string
+};
 
 const mapStateProps = (state) => {           
     return {
