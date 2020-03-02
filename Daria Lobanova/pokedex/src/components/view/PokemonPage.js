@@ -12,12 +12,12 @@ class PokemonPage extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            pokemon: []
+            pokemon: {}
         }        
     }
 
     componentDidMount() {        
-        const id = this.props.match.params.id;                  
+        const id = Boolean(this.props.match) ? this.props.match.params.id : 0;                          
         getPokemon(id, this);        
     }
 
@@ -32,7 +32,7 @@ class PokemonPage extends React.Component {
             )
         } else {
             return(
-                <div className='container'>    
+                <section className='container'>    
                     <Helmet title={`Pokédex | ${pokemon.name}`} />
     
                     <div className='card border-dark pokemon item text-monospace'>
@@ -61,7 +61,7 @@ class PokemonPage extends React.Component {
     
                     </div>
     
-                </div>
+                </section>
             )
         }
     } 
@@ -69,12 +69,12 @@ class PokemonPage extends React.Component {
 
 PokemonPage.propTypes = {
     isLoading: PropTypes.bool,
-    pokemon: PropTypes.arrayOf(PropTypes.shape({
+    pokemon: PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
         isCatched: PropTypes.bool,
-        date: PropTypes.date
-    }))
+        date: PropTypes.string
+    })
 };
 
 export default PokemonPage;

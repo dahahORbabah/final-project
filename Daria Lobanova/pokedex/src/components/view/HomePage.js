@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import { getPokemons, getInitialStateAfterReload } from '../fetchers';
+import { setFilter } from '../setters';
 import Card from './Card';
 import store from '../../store/store';
 
@@ -56,24 +58,13 @@ export class HomePage extends React.Component {
         }       
     }
 
-    setFilter = (textFilter) => {        
-        if (textFilter !== this.state.textFilter) {
-            this.setState(
-                {
-                    textFilter
-                }
-            );            
-            getPokemons(this, textFilter, false);
-        }
-    }
-
     render() {
         let { isLoading, pokemons } = this.state;     
         const textFilter = store.getState().filterReducer.filterText.text;
         
         if (textFilter !== undefined) {
-            this.setFilter(textFilter);                         
-        }        
+            setFilter(textFilter, this);                         
+        }             
     
         if (!isLoading) {
             return (
@@ -85,6 +76,7 @@ export class HomePage extends React.Component {
             return (                
             
                 <ul className='container'>
+                    <Helmet title={`Pokédex | Lobanova Daria`} />
 
                     {
                         pokemons.map(pokemon => (  
@@ -116,7 +108,13 @@ HomePage.propTypes = {
     isLoading: PropTypes.bool,
     page: PropTypes.number,
     limit: PropTypes.number,
-    pokemons: PropTypes.array,
+    textFilter: PropTypes.string,
+    pokemons: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        isCatched: PropTypes.bool,
+        date: PropTypes.date
+    }))
 };
 
 

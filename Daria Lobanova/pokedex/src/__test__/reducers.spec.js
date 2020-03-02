@@ -1,5 +1,5 @@
-import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from '../../store/constants';
-import rootReducer from '../../store/reducers/index';
+import { ACTION_CHANGE_BUTTON, ACTION_CHANGE_INPUT } from '../store/constants';
+import rootReducer from '../store/reducers/index';
 
 describe('Reducers', () => {
 

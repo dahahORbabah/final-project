@@ -5,20 +5,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { changeButton } from '../../store/actions/actions';
-import { OPTIONS, PLACEHOLDER_SMALL } from '../constants';
-import { getBoolean, getDate, getPicture } from '../getters';
-import { getUpdateDB } from '../fetchers';
+import { PLACEHOLDER_SMALL } from '../constants';
+import { getDate, getPicture } from '../getters';
 import store from '../../store/store';
+import CatchButton from './CatchButton';
 
 export class Card extends React.Component { 
 
     render() {
-        const { changeButton } = this.props;
+        // const { changeButton } = this.props;
         const id = this.props.id;  
-        const name = this.props.name;             
+        const name = this.props.name;    
+        
+        // console.log(this.props);        
 
         return(
-            <div className='pokemon text-monospace' >
+            <article className='pokemon text-monospace' >
                 <Link to={`/pokemon/${id}`}>
                     
                     <p className='pokemon_name'>
@@ -37,36 +39,42 @@ export class Card extends React.Component {
 
                 </Link> 
 
-                <button
+                {/* <button
                     className='btn btn-dark pokemon_catch'
                     onClick={() => {   
                         let date = new Date();                                                    
                         changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS));                         
                         getUpdateDB(id, date.toLocaleDateString(undefined, OPTIONS), true);                                             
                     }} 
-                    disabled={getBoolean(store.getState().catchedReducer, this.props.id)}>
+                    disabled={Boolean(getBoolean(store.getState().catchedReducer, this.props.id))}>
                     {
                         getBoolean(store.getState().catchedReducer, this.props.id)
                         ?   'CATCHED'
                         :   'CATCH'             
                     }
-                </button>
+                </button> */}
+
+                <CatchButton 
+                    id={id}
+                    name={name}
+                />
 
                 <div className='date text-center text-muted'>
-                    {getDate(store.getState().catchedReducer, this.props.id)}
+                    {getDate(store.getState().catchedReducer, id)}
                 </div> 
 
-            </div>
+            </article>
         );
     }
 }
 
 Card.propTypes = {
     id: PropTypes.number,
-    name: PropTypes.string
+    name: PropTypes.string,
+    catched: PropTypes.array
 };
 
-const mapStateProps = (state) => {        
+const mapStateProps = (state) => {            
     return {
         catched: state.catchedReducer.catched
     };
