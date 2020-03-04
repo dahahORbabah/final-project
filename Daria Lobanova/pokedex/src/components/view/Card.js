@@ -31,28 +31,13 @@ export class Card extends React.Component {
                         className='pokemon_image'
                         src={getPicture(id, this)}
                         onError={(e) => {
-                            e.target.onError = null;
+                            // e.target.onError = null;
                             e.target.src = PLACEHOLDER_SMALL;
                         }}
                         alt={'Pokemon'}
                     />
 
                 </Link> 
-
-                {/* <button
-                    className='btn btn-dark pokemon_catch'
-                    onClick={() => {   
-                        let date = new Date();                                                    
-                        changeButton(id, name, true, date.toLocaleDateString(undefined, OPTIONS));                         
-                        getUpdateDB(id, date.toLocaleDateString(undefined, OPTIONS), true);                                             
-                    }} 
-                    disabled={Boolean(getBoolean(store.getState().catchedReducer, this.props.id))}>
-                    {
-                        getBoolean(store.getState().catchedReducer, this.props.id)
-                        ?   'CATCHED'
-                        :   'CATCH'             
-                    }
-                </button> */}
 
                 <CatchButton 
                     id={id}

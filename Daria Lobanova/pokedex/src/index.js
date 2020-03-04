@@ -8,8 +8,5 @@ import App from './components/App';
 
 import './sass/index.sass';
 
-// import * as serviceWorker from './serviceWorker';
-
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// serviceWorker.unregister();

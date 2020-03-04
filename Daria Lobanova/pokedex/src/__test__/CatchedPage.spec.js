@@ -1,17 +1,91 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 
 import CatchedPage from '../components/view/CatchedPage';
-// import Card from '../components/view/Card';
 import { checkProps } from './__utils__/index';
+
+const mockStore = configureMockStore();
+const setUp = (initialSate = {}, props = {}) => {    
+
+    const store = mockStore(initialSate);
+    const wrapper = shallow(<CatchedPage store={store} {...props}/>).childAt(0).dive();
+    wrapper.setState({ 
+        isLoading: true, 
+        pokemons: [
+        {
+            "name": "bulbasaur",
+            "id": 1,
+            "date": "",
+            "isCatched": false
+          },
+          {
+            "name": "ivysaur",
+            "id": 2,
+            "date": "",
+            "isCatched": false
+          },
+          {
+            "name": "venusaur",
+            "id": 3,
+            "date": "",
+            "isCatched": false
+          }
+    ] });
+
+    // console.log(wrapper.debug());
+    // console.log(wrapper.props());    
+
+    return wrapper;
+
+};
 
 describe('CatchedPage component', () => {
 
+    let wrapper;
+
+    const initialSate = {
+        "catchedReducer" : {"catched" : [
+            {
+                "name": "bulbasaur",
+                "id": 1,
+                "date": "",
+                "isCatched": false
+              },
+              {
+                "name": "ivysaur",
+                "id": 2,
+                "date": "",
+                "isCatched": false
+              },
+              {
+                "name": "venusaur",
+                "id": 3,
+                "date": "",
+                "isCatched": false
+              }
+        ]}, 
+        "filterReducer" : {"filterText" : ""}
+    };
+
+    const props = { 
+        isLoading: false,
+        textFilter: 'Test',
+        limit: 1,
+        page: 1,
+        pokemons: [{
+            id: 1,
+            name: 'Test',
+            isCatched: false,
+            date: 'date'
+        }]
+    };       
+
+    wrapper = setUp(initialSate, props);        
+
     describe('> Checking PropTypes', () => {
 
-        it('++ Should not throw a warning', () => {
+        it('+++ Should not throw a warning', () => {
 
             const expectedProps = {
                 isLoading: false,
@@ -21,7 +95,7 @@ describe('CatchedPage component', () => {
                 pokemons: [{
                     id: 1,
                     name: 'Test',
-                    isCatched: false,
+                    isCatched: true,
                     date: 'date'
                 }]
             };
@@ -35,44 +109,20 @@ describe('CatchedPage component', () => {
 
     describe('> Renders', () => {
 
-        const mockStore = configureMockStore();
-        const initialState = {};
-        let wrapper, store;
-
-        beforeEach(() => {
-
-            const props = {
-                isLoading: false,
-                textFilter: 'Test',
-                limit: 1,
-                page: 1,
-                pokemons: [{
-                    id: 1,
-                    name: 'Test',
-                    isCatched: false,
-                    date: 'date'
-                }]
-            };
-
-            store = mockStore(initialState);
-            wrapper = shallow(<Provider store={store}><CatchedPage {...props} /></Provider>);
-
-        });
-
         it('+++ Should render without throwing an error', () => {
-            expect(wrapper.exists(<ul />)).toBe(false);
+            expect(wrapper.length).toBe(1);
         });
 
         it('+++ Should return <li>', () => {
-            expect(wrapper.find('li'));
+            expect(wrapper.find('li').exists()).toEqual(true);
         });
 
-        it('+++ Should return <Card>', () => {
-            expect(wrapper.find('Card'));
+        it('+++ Should return <Card>', () => {            
+            expect(wrapper.find('Connect(Card)').exists()).toEqual(true);
         });
 
-        it('+++ Should return <h1>', () => {
-            expect(wrapper.find('h1'));
+        it('+++ Should not return <h1>', () => {
+            expect(wrapper.find('h1').exists()).toEqual(false);
         });
 
     });

@@ -4,13 +4,14 @@ import configureMockStore from 'redux-mock-store';
 
 import CatchButton from '../components/view/CatchButton';
 import { checkProps } from './__utils__/index';
+import { getBoolean } from '../components/getters';
 
 const mockStore = configureMockStore();
 const setUp = (initialSate = {}, mockFunc) => {    
 
     const store = mockStore(initialSate);
     const wrapper = shallow(<CatchButton store={store} />).childAt(0).dive();
-    wrapper.setProps({ changeButton:  mockFunc});
+    wrapper.setProps({ id: 1, changeButton:  mockFunc});
 
     // console.log(wrapper.debug());
     // console.log(wrapper.props());    
@@ -32,7 +33,7 @@ describe('CathButton component', () => {
 
     const props = { 
         id: 1, 
-        name: 'bulbasaur',
+        name: 'pokemon',
         changeButton: mockFunc,
     };       
 
@@ -70,8 +71,24 @@ describe('CathButton component', () => {
                 expect(mockFunc).toHaveBeenCalled();                
                 expect(callback).toBe(1); 
 
+                wrapper.setState({ catched: [{ id: 1, name: 'pokemon', date: '1.1.1', isCatched: true }] });
+
             });
 
+        });
+
+    });
+
+    describe('> Functions', () => {
+
+        it('+++ Should return true', () => {
+            expect(getBoolean(wrapper.state(), props.id)).toBe(true);
+        });
+
+        wrapper.setState({ catched: [{ id: 1, name: 'pokemon', date: '1.1.1', isCatched: false }] });
+
+        it('+++ Should return false', () => {
+            expect(getBoolean(wrapper.state(), props.id)).toBe(true);
         });
 
     });

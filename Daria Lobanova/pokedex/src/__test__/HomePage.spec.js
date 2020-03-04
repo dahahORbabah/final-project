@@ -4,6 +4,7 @@ import configureMockStore from 'redux-mock-store';
 
 import HomePage from '../components/view/HomePage';
 import { checkProps } from './__utils__/index';
+import { setFilter } from '../components/setters';
 
 const mockStore = configureMockStore();
 const setUp = (initialSate = {}, props = {}) => {    
@@ -11,7 +12,10 @@ const setUp = (initialSate = {}, props = {}) => {
     const store = mockStore(initialSate);
     const wrapper = shallow(<HomePage store={store} {...props}/>).childAt(0).dive();
     wrapper.setState({ 
-        isLoading: true, 
+        isLoading: true,
+        textFilter: 'test',
+        limit: 12,
+        page:1, 
         pokemons: [
         {
             "name": "bulbasaur",
@@ -52,16 +56,16 @@ describe('HomePage component', () => {
 
     const props = { 
         firstLoad: false,
-            isLoading: false,
-            textFilter: 'Text',
-            page: 1,
-            limit: 3,
-            pokemons: [{
-                id: 1,
-                name: 'Test',
-                isCatched: false,
-                date: 'date'
-            }]
+        isLoading: false,
+        textFilter: 'Text',
+        page: 1,
+        limit: 3,
+        pokemons: [{
+            id: 1,
+            name: 'Test',
+            isCatched: false,
+            date: 'date'
+        }]
     };
 
     wrapper = setUp(initialSate, props);        
@@ -104,6 +108,15 @@ describe('HomePage component', () => {
 
         it('+++ Should return <Card>', () => {
             expect(wrapper.find('Connect(Card)').exists()).toEqual(true);
+        });
+
+        describe('> Functions', () => {
+
+            it('+++ Should return ', () => {
+                expect(setFilter('test1', wrapper)).toBeUndefined();
+                expect(wrapper.state().textFilter).toEqual('test1');                
+            });
+
         });
 
     });

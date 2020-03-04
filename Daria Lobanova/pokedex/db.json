@@ -2,27 +2,19 @@
   "pokemons": [
     {
       "name": "bulbasaur",
-      "id": 1,
-      "date": "",
-      "isCatched": false
+      "id": 1
     },
     {
       "name": "ivysaur",
-      "id": 2,
-      "date": "",
-      "isCatched": false
+      "id": 2
     },
     {
       "name": "venusaur",
-      "id": 3,
-      "date": "",
-      "isCatched": false
+      "id": 3
     },
     {
       "name": "charmander",
-      "id": 4,
-      "date": "",
-      "isCatched": false
+      "id": 4
     },
     {
       "name": "charmeleon",
@@ -30,9 +22,7 @@
     },
     {
       "name": "charizard",
-      "id": 6,
-      "date": "",
-      "isCatched": false
+      "id": 6
     },
     {
       "name": "squirtle",
@@ -72,9 +62,7 @@
     },
     {
       "name": "pidgey",
-      "id": 16,
-      "date": "",
-      "isCatched": false
+      "id": 16
     },
     {
       "name": "pidgeotto",
@@ -110,9 +98,7 @@
     },
     {
       "name": "pikachu",
-      "id": 25,
-      "date": "",
-      "isCatched": false
+      "id": 25
     },
     {
       "name": "raichu",
@@ -1000,9 +986,7 @@
     },
     {
       "name": "pupitar",
-      "id": 247,
-      "date": "",
-      "isCatched": false
+      "id": 247
     },
     {
       "name": "tyranitar",

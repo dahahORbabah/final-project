@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { getPokemons } from '../fetchers';
+import { setFilter } from '../setters';
 import store from '../../store/store';
 import Card from './Card';
 
@@ -31,23 +32,12 @@ export class CatchedPage extends React.Component {
         getPokemons(this, this.state.textFilter, true);
     }
 
-    setFilter = (textFilter) => {        
-        if (textFilter !== this.state.textFilter) {
-            this.setState(
-                {
-                    textFilter
-                }
-            );
-            getPokemons(this, textFilter, true);
-        }
-    }
-
     render() {
         let { isLoading, pokemons } = this.state;       
         const textFilter = store.getState().filterReducer.filterText.text;
         
         if (textFilter !== undefined) {
-            this.setFilter(textFilter);                         
+            setFilter(textFilter, this);                         
         }   
 
         if (!isLoading) {

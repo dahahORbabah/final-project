@@ -5,13 +5,15 @@ import configureMockStore from 'redux-mock-store';
 import Card from '../components/view/Card';
 import { URL } from '../components/constants';
 import { checkProps } from './__utils__/index';
+import { getDate, getPicture } from '../components/getters';
 
 const mockStore = configureMockStore();
 const setUp = (initialSate = {}, props = {}) => {    
 
     const store = mockStore(initialSate);
     const wrapper = shallow(<Card store={store} {...props}/>).childAt(0).dive();
-    wrapper.setProps({ props });
+    // wrapper.setProps({ props });    
+    wrapper.setState({ id: 1, name: 'bulbasaur', catched: [{ id: 1, name: 'bulbasaur', date: '1.1.1', isCatched: true }] });
 
     // console.log(wrapper.debug());
     // console.log(wrapper.props());    
@@ -27,7 +29,6 @@ describe('Card component', () => {
     beforeEach(() => {
 
         mockFunc = jest.fn();
-        // mockFunc.mockName('buttonClick');
 
         const initialSate = {
             "catchedReducer" : {"catched" : []}, 
@@ -36,9 +37,7 @@ describe('Card component', () => {
 
         const props = { 
             id: 1, 
-            name: 'bulbasaur' ,
-            catched: [],
-            changeButton: mockFunc
+            name: 'bulbasaur'
         };       
 
         wrapper = setUp(initialSate, props);        
@@ -49,7 +48,7 @@ describe('Card component', () => {
 
         it('+++ Should not throw a warning', () => {       
 
-            const propsError = checkProps(Card, { id: 1, name: 'bulbasaur', catched: [] });
+            const propsError = checkProps(Card, { id: 1, name: 'bulbasaur' });
             expect(propsError).toBeUndefined();
 
         });
@@ -68,7 +67,6 @@ describe('Card component', () => {
 
         it('+++ Should return <p> with name of pokemon', () => {          
             expect(wrapper.find('.pokemon_name').exists()).toEqual(true);
-            // expect(wrapper.contains(<p className='pokemon_name'>{props.name}</p>));
         });
 
         describe('> Image', () => {
@@ -81,7 +79,8 @@ describe('Card component', () => {
 
                 const props = {
                     imgSrc: `${URL}/1.png`,
-                    imgAlt: 'Pokemon'
+                    imgAlt: 'Pokemon',
+                    // imgErr: () => { }
                 };
 
                 expect(wrapper.find('img').props()).toEqual({
@@ -92,7 +91,7 @@ describe('Card component', () => {
                 });
 
                 expect(wrapper.find('img').props().src).toBe(props.imgSrc);
-                // expect(wrapper.find('img').props().onError.target.onError).toBe(null);               
+                // expect(wrapper.find('img').props().onError).toBe(props.imgErr);              
 
             });
 
@@ -100,6 +99,18 @@ describe('Card component', () => {
 
         it('+++ Should return <div> with date string', () => {
             expect(wrapper.find('div').hasClass('date')).toEqual(true);
+        });
+
+    });
+
+    describe('> Functions', () => {
+
+        it('+++ Should return date string', () => {            
+            expect(getDate(wrapper.state(), wrapper.state().id)).toBe('1.1.1');
+        });
+
+        it('+++ Should return URL to pokemon', () => {            
+            expect(getPicture(wrapper.state().id, wrapper)).toBe('http://localhost:3333/pokemons/1.png');
         });
 
     });

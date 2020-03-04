@@ -1,22 +1,52 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 
 import SearchBar from '../components/search/SearchBar';
 import { checkProps } from './__utils__/index';
 
+const mockStore = configureMockStore();
+const setUp = (initialSate = {}, mockFunc) => {    
+
+    const store = mockStore(initialSate);
+    const wrapper = shallow(<SearchBar store={store} />).childAt(0).dive();
+    wrapper.setProps({ onFilterTextChange: mockFunc });
+
+    // console.log(wrapper.debug());
+    // console.log(wrapper.props());    
+
+    return wrapper;
+
+};
+
 describe('SearchBar component', () => {
+
+    let wrapper, mockFunc;
+
+    // beforeEach(() => {
+
+        mockFunc = jest.fn();
+        // mockFunc.mockName('buttonClick');
+
+        const initialSate = {
+            "catchedReducer" : {"catched" : []}, 
+            "filterReducer" : {"filterText" : ""}
+        };
+
+        const props = { 
+            filterText: 'test',
+            onFilterTextChange: mockFunc
+        };       
+
+        wrapper = setUp(initialSate, mockFunc);        
+
+    // });
 
     describe('> Checking PropTypes', () => {
 
         it('+++ Should not throw a warning', () => {
 
-            const expectedProps = {
-                filterText: 'Test'
-            };
-
-            const propsError = checkProps(SearchBar, expectedProps);
+            const propsError = checkProps(SearchBar, props);
             expect(propsError).toBeUndefined();
 
         });
@@ -25,27 +55,26 @@ describe('SearchBar component', () => {
 
     describe('> Renders', () => {
 
-        const mockStore = configureMockStore();
-        const initialState = {};
-        let wrapper, store;
-
-        beforeEach(() => {
-
-            const props = {
-                filterText: 'Test'
-            };
-
-            store = mockStore(initialState);
-            wrapper = shallow(<Provider store={store}><SearchBar {...props} /></Provider>);
-
-        });
-
         it('+++ Should render without throwing an error', () => {
-            expect(wrapper.exists(<div />)).toBe(false);
+            expect(wrapper.length).toBe(1);
         });
+
+    });
+
+    describe('> Input', () => {
 
         it('+++ Should return <input>', () => {
-            expect(wrapper.find('input'));
+            expect((wrapper.find('input')).length).toBe(1);
+        });
+
+        it('+++ Should return string', () => {
+            wrapper.find('input').simulate('change', { target: { value: 'pika' } });
+
+            const callback = mockFunc.mock.calls.length;
+
+            expect(mockFunc).toHaveBeenCalled();
+            expect(callback).toBe(1);          
+            
         });
 
     });
